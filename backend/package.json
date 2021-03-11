@@ -1,0 +1,21 @@
+{
+  "name": "letsmeet-backend",
+  "version": "1.0.0",
+  "description": "Backend for letsmeet application",
+  "main": "server.js",
+  "scripts": {
+    "test": "start"
+  },
+  "keywords": [
+    "Nodejs",
+    "Mongodb",
+    "chat-app",
+    "office",
+    "virtual"
+  ],
+  "author": "LetUsMeet",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
