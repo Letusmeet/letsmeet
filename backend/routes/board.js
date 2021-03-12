@@ -9,7 +9,7 @@ const Card = mongoose.model("Card")
 router.post('/createboard',(req,res)=>{
     const{title,manager,description} = req.body; //requires board title, the userid which is creating as manager
     var myboard= new Board({        //and some description about board.
-        title,
+        boardtitle:title,
         manager,
         description
     });
@@ -39,28 +39,14 @@ router.post('/createcard',(req,res)=>{
     });
 });
 
-router.post('/createcard',(req,res)=>{
-    const{title,board,description} = req.body; //requires card title, the boardId in which it is created
-    var mycard= new Card({        //and some description about card.
-        title,
-        board,
-        description,
-        status:'Todo'
-    });
-    mycard.save().then(card=>{
-        Board.findByIdAndUpdate(board,{$push:{cards:mycard._id}}).then(added=>{
-            res.json({card,message:"Card created successfully!"});
-        })
-    }).catch(err=>{
-        res.json({err,message:"Some error occured, please try again!"});
-    });
-});
-
 //to add employees to board
 router.post('/addemployee',(req,res)=>{
     const{employee,board}=req.body;   //needs id of the employee to be added to board and boardId
-    Board.findByIdAndUpdate(board,{push:{employees:employee}}).then(added=>{
-        res.json({added,message:"Employee added successfully!"});
+    console.log(employee);
+    Board.findById(board).then(added=>{
+        added.updateOne({$push:{employees:employee}}).then(done=>{
+            res.json({done,message:"Employee added successfully!"});
+        })
     }).catch(err=>{
         res.json({err,message:"Some error occurred, please try again!"});
     })
@@ -69,8 +55,10 @@ router.post('/addemployee',(req,res)=>{
 //to remove employees from board
 router.post('/removeemployee',(req,res)=>{
     const{employee,board}=req.body;   //needs id of the employee to be removed to board and boardId
-    Board.findByIdAndUpdate(board,{pull:{employees:employee}}).then(removed=>{
-        res.json({removed,message:"Employee removed successfully!"});
+    Board.findById(board).then(removed=>{
+        removed.updateOne({$pull:{employees:employee}}).then(done=>{
+            res.json({done,message:"Employee removed successfully!"});
+        })
     }).catch(err=>{
         res.json({err,message:"Some error occurred, please try again!"});
     })
@@ -84,7 +72,7 @@ router.post('/comment',(req,res)=>{
            by:user,
            body:comment
        };
-       mycard.update({push:{comments:mycomment}}).then(done=>{
+       mycard.update({$push:{comments:mycomment}}).then(done=>{
            res.json({done,message:"Comment added!"});
        });
     }).catch(err=>{
@@ -130,7 +118,7 @@ router.post('/deletecard',(req,res)=>{
     const{card}=req.body;             //needs cardId that is to be deleted
     Card.findById(card).then(mycard=>{
         Board.findById(card.board).then(board=>{
-            board.update({pull:{cards:card}}).then(removed=>{
+            board.update({$pull:{cards:card}}).then(removed=>{
                 console.log(removed);
                 mycard.deleteOne().then(deleted=>{
                     res.json({deleted,message:"Card deleted successfully!"});
