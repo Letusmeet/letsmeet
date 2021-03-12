@@ -28,6 +28,22 @@ const userSchema = mongoose.Schema({
     rooms: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Room'
+    }],
+    office: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Office'
+    },
+    requests:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    sentrequests:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    friends:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }]
 })
 

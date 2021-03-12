@@ -22,7 +22,7 @@ const officeSchema = new mongoose.Schema({
     rooms: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Room'
-    }],
+    }]
 
 })
 

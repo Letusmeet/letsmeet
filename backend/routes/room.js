@@ -8,6 +8,8 @@ const Room = mongoose.model("Room")
 const Office = mongoose.model("Office")
 const middlewareadmin = require('../middleware/admin')
 const middleware = require('../middleware/user')
+
+//to create office
 router.post('/createoffice', middlewareadmin, (req, res) => {
     const { officename } = req.body
     if (!officename) {
@@ -24,6 +26,7 @@ router.post('/createoffice', middlewareadmin, (req, res) => {
     })
 })
 
+//to create rooms
 router.post('/createroom', middlewareadmin, (req, res) => {
     const { roomname } = req.body
     if (!roomname) {
@@ -87,6 +90,8 @@ router.post('/searchuser', middlewareadmin, (req, res) => {
             console.log(err)
         })
 })
+
+
 
 
 module.exports = router;
