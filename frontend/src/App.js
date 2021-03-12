@@ -1,3 +1,4 @@
+import reactDom from "react-dom";
 import "./App.css";
 import Footer from "./base/Footer";
 import { Switch, Route } from "react-router-dom";
