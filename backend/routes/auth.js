@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../keys/key");
 
 router.post("/signup", (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ error: "please Fill All the details" });
   }
@@ -20,8 +20,7 @@ router.post("/signup", (req, res) => {
         const user = new User({
           email,
           password: hashedpassword,
-          name,
-          pic,
+          name
         });
 
         user
