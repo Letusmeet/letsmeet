@@ -7,8 +7,11 @@ import { Row, Col, Alert } from "react-bootstrap";
 import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
+=======
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
+>>>>>>> f4fa7177b53dd18279274648a4624143ad0e746c
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +23,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
+<<<<<<< HEAD
+  //   const { setAuthenticated } = useContext(UserAuth);
+=======
   const { setAuthenticated } = useContext(UserAuth);
+>>>>>>> f4fa7177b53dd18279274648a4624143ad0e746c
   const history = useHistory();
 
   //submit button toggle

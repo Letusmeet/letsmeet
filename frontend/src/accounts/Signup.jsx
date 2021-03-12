@@ -79,10 +79,10 @@ export default function Login(props) {
 
     //submit button state check on or of
     name.email === "" ||
-    name.username === "" ||
-    name.password1 === "" ||
-    name.password2 === "" ||
-    checked === false
+      name.username === "" ||
+      name.password1 === "" ||
+      name.password2 === "" ||
+      checked === false
       ? setdisable(true)
       : setdisable(false);
   };
