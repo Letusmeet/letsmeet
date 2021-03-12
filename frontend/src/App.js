@@ -1,26 +1,26 @@
 import reactDom from "react-dom";
 import "./App.css";
 import Footer from "./base/Footer";
-import Navbar from "./base/Navbar";
-import Chat from "./Chat/Chat";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import Login from "./accounts/Login";
+import Signup from "./accounts/Signup";
+import UserAuth from "./accounts/UserAuth";
+import React from "react";
+import AuthNav from "./base/AuthNav";
+import UnAuthNav from "./base/UnAuthNav";
+
 function App() {
+  const [authenticated, setAuthenticated] = React.useState(true);
   return (
     <>
-    
-      <Router>
-     
-      <Switch>
-      <Route exact path="/chat" component={Chat}/>
-      </Switch>
-     
-      
-      </Router>
+      <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
+        {authenticated ? <AuthNav /> : <UnAuthNav />}
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+        </Switch>
+        <Footer />
+      </UserAuth.Provider>
     </>
   );
 }

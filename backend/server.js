@@ -20,10 +20,12 @@ mongoose.connection.on('error', (err) => {
 
 //-------------------------models-------------
 require('./models/user')
+require('./models/board')
+require('./models/card')
 //------------------------routes-------------
 app.use(express.json())
 app.use(require('./routes/auth'))
-
+app.use(require('./routes/board'))
 
 app.listen(port, () => {
     console.log(`server on port ${port}`)

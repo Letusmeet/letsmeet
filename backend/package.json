@@ -4,7 +4,8 @@
   "description": "Backend for letsmeet application",
   "main": "server.js",
   "scripts": {
-    "test": "start"
+    "test": "start",
+    "start":"nodemon server.js"
   },
   "keywords": [
     "Nodejs",
