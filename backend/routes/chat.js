@@ -6,8 +6,9 @@ const Message = require("../models/Message");
 const Conversation = require("../models/Conversation");
 
 /*
-Todo: jwtCheck for all routes, Socket connection
+Todo: jwtCheck for all routes, Socket connection (Refer this repo: https://github.com/davehowson/chat-app)
  */
+
 
 //Send a private message to someone
 /*
@@ -48,7 +49,8 @@ router.post("/chat", (req, res) => {
           body: req.body.body,
         });
 
-        //req.io.sockets.emit("messages", req.body.body);
+        //socket connection https://github.com/davehowson/chat-app
+        req.io.sockets.emit("messages", req.body.body);
 
         message.save((err) => {
           if (err) {
