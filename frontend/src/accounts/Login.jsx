@@ -8,6 +8,7 @@ import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import UserAuth from "../accounts/UserAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
-  //   const { setAuthenticated } = useContext(UserAuth);
+  const { setAuthenticated } = useContext(UserAuth);
   const history = useHistory();
 
   //submit button toggle
@@ -73,8 +74,7 @@ export default function Login(props) {
       .then(async (response) => {
         console.log(response.status);
         if (response.status == 200) {
-          console.log(response);
-          // setAuthenticated(true);
+          setAuthenticated(true);
           window.localStorage.setItem("csrfToken", response.data.token);
           window.localStorage.setItem("isAuth", true);
           window.localStorage.setItem("id", response.data.user._id);
