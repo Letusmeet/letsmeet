@@ -130,4 +130,28 @@ router.post('/deletecard',(req,res)=>{
     })
 })
 
+//to get all the cards in a particular taskboard
+router.get('/cards/:id',async(req,res)=>{
+    try{
+        const boardId=req.params.id;
+        const cards = await Card.find({board: boardId});
+        res.status(200).json(cards);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message:"Server error"})
+    }
+})
+
+//to get the list of taskboards for the logged in user
+router.get('/boards/:id',async(req,res)=>{
+    try{
+        const UserId=req.params.id;
+        const boards = await Board.find( { $or: [ { manager: UserId }, { employees:UserId } ] })
+        res.status(200).json(boards);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message:"Server error"})
+    }
+})
+
 module.exports = router;
