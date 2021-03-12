@@ -8,7 +8,6 @@ const { JWT_SECRET } = require("../keys/key");
 
 router.post("/signup", (req, res) => {
   const { name, email, password, pic } = req.body;
-  console.log(name.email, password);
   if (!email || !password || !name) {
     return res.status(422).json({ error: "please Fill All the details" });
   }
