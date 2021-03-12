@@ -19,8 +19,16 @@ const userSchema = mongoose.Schema({
     },
     manager: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+    },
+    managerof: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room'
+    }],
+    rooms: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room'
+    }]
 })
 
 mongoose.model("User", userSchema)

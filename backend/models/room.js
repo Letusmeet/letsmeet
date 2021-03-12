@@ -1,20 +1,21 @@
 const mongoose = require('mongoose')
 
 const RoomSchema = new mongoose.Schema({
+    name: {
+        type: String
+    },
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     members: [{
-        memberid: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        designation: {
-            type: String,
-            required: true,
-            default: "Employee"
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+
+    }],
+    manager: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
     boards: [{
         type: mongoose.Schema.Types.ObjectId,
