@@ -22,6 +22,10 @@ export default function TemporaryDrawer() {
     left: false,
   });
 
+  const dashboardHandler = () => {
+    history.push("/dashboard");
+  };
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -60,26 +64,26 @@ export default function TemporaryDrawer() {
           />
           <Divider />
           <List>
-            {["Office", "Setting", "Help"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index === 0 ? (
-                    <HomeWorkIcon />
-                  ) : index === 1 ? (
-                    <SettingsIcon />
-                  ) : (
-                    <AccessibilityNewSharpIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-            {/* <ListItem onClick={LogOut} button>
+            <ListItem onClick={dashboardHandler} button>
               <ListItemIcon>
-                <ExitToAppSharpIcon style={{ color: "red" }} />
+                <HomeWorkIcon />
               </ListItemIcon>
-              <ListItemText primary="logout" />
-            </ListItem> */}
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+
+            <ListItem button>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Setting" />
+            </ListItem>
+
+            <ListItem button>
+              <ListItemIcon>
+                <AccessibilityNewSharpIcon />
+              </ListItemIcon>
+              <ListItemText primary="Help" />
+            </ListItem>
           </List>
         </div>
       </Drawer>
