@@ -7,6 +7,11 @@ import { Row, Col, Alert } from "react-bootstrap";
 import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import UserAuth from "../accounts/UserAuth";
+>>>>>>> f4fa7177b53dd18279274648a4624143ad0e746c
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +23,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
+<<<<<<< HEAD
   //   const { setAuthenticated } = useContext(UserAuth);
+=======
+  const { setAuthenticated } = useContext(UserAuth);
+>>>>>>> f4fa7177b53dd18279274648a4624143ad0e746c
   const history = useHistory();
 
   //submit button toggle
@@ -60,30 +69,29 @@ export default function Login(props) {
 
   // on form submit
   const onSubmits = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     console.log("submitted");
 
-    // axios
-    //   .post("http://127.0.0.1:8000/accounts/login/", {
-    //     email: name.email,
-    //     password: name.password,
-    //   })
-    //   .then(async (response) => {
-    //     if (response.data.success) {
-    //       setAuthenticated(true);
-    //       window.localStorage.setItem("csrfToken", response.data.data.token);
-    //       console.log(response.data.data.token);
-    //       window.localStorage.setItem("isAuth", true);
-    //       window.localStorage.setItem("id", response.data.data.id);
-    //       history.push("/");
-    //     } else {
-    //       setLogMsg(response.data.message);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLogMsg("Opps! Please try again");
-    //   });
+    axios
+      .post("/signin", {
+        email: name.email,
+        password: name.password,
+      })
+      .then(async (response) => {
+        console.log(response.status);
+        if (response.status == 200) {
+          setAuthenticated(true);
+          window.localStorage.setItem("csrfToken", response.data.token);
+          window.localStorage.setItem("isAuth", true);
+          window.localStorage.setItem("id", response.data.user._id);
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.error("err :" + err);
+        setLogMsg("Opps! Please try again");
+      });
   };
 
   const classes = useStyles();

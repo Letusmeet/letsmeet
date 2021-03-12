@@ -79,10 +79,10 @@ export default function Login(props) {
 
     //submit button state check on or of
     name.email === "" ||
-    name.username === "" ||
-    name.password1 === "" ||
-    name.password2 === "" ||
-    checked === false
+      name.username === "" ||
+      name.password1 === "" ||
+      name.password2 === "" ||
+      checked === false
       ? setdisable(true)
       : setdisable(false);
   };
@@ -92,23 +92,21 @@ export default function Login(props) {
     e.preventDefault();
     console.log("submitted");
 
-    //   axios
-    //     .post("http://127.0.0.1:8000/accounts/create/", {
-    //       email: name.email,
-    //       username: name.username,
-    //       password1: name.password1,
-    //       password2: name.password2,
-    //     })
-    //     .then(async (response) => {
-    //       if (response.data.success) {
-    //         history.push("/login"); //send to login
-    //       } else {
-    //         setLogMsg(response.data.message); //error message
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       setLogMsg("Opps! Please try again");
-    //     });
+    axios
+      .post("/signup", {
+        email: name.email,
+        password: name.password1,
+        name: name.username,
+        // password2: name.password2,
+      })
+      .then(async (response) => {
+        if (response.status == 200) {
+          history.push("/login"); //send to login
+        }
+      })
+      .catch((err) => {
+        setLogMsg("please enter all detail or user exits");
+      });
   };
   const classes = useStyles();
   return (
