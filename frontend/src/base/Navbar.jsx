@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,6 +86,12 @@ export default function Navbar() {
               >
                 <MenuItem onClick={handleClose}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>Signup</MenuItem>
+                <NavLink to="/signup" exact className="nav-link">
+                  <MenuItem onClick={handleClose}>Signup</MenuItem>
+                </NavLink>
+                <NavLink to="/login" exact className="nav-link">
+                  <MenuItem onClick={handleClose}>Login</MenuItem>
+                </NavLink>
               </Menu>
             </div>
           )}
