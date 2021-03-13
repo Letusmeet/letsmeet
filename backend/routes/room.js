@@ -20,7 +20,7 @@ router.post('/createoffice', middleware, (req, res) => {
         var office = new Office({
             name: officename,
             admin: req.user._id,
-
+            membersoffice: { memberid: req.user._id }
         })
         office.save().then(result => {
             console.log(result._id);
