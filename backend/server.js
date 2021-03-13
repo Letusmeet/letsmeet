@@ -21,12 +21,19 @@ mongoose.connection.on("error", (err) => {
 require("./models/user");
 require("./models/board");
 require("./models/card");
+
+const server = app.listen(port, () => {
+  console.log(`server on port ${port}`);
+});
+
+const io = require("socket.io")(server);
+app.use(function (req, res, next) {
+  req.io = io;
+  next();
+});
+
 //------------------------routes-------------
 app.use(express.json());
 app.use(require("./routes/auth"));
 app.use(require("./routes/board"));
 app.use(require("./routes/chat"));
-
-app.listen(port, () => {
-  console.log(`server on port ${port}`);
-});
