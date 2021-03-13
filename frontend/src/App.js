@@ -17,6 +17,7 @@ function App() {
   return (
     <>
       <UserAuth.Provider>
+        {authenticated ? AuthNav : UnAuthNav}
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
