@@ -9,11 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
-<<<<<<< HEAD
-import Footer from "../base/Footer";
-=======
->>>>>>> d56141d5f7b802c136640e5fe45b86278e756805
-
+import Footer from "../base/"
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -24,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
-<<<<<<< HEAD
-  
-=======
->>>>>>> d56141d5f7b802c136640e5fe45b86278e756805
   const { setAuthenticated } = useContext(UserAuth);
   const history = useHistory();
 
