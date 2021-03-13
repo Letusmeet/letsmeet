@@ -69,8 +69,8 @@ export default function TemporaryDrawer() {
             >
               <ListItem button>
                 <ListItemIcon>
-                  <HomeWorkIcon />
-                </ListItemIcon>
+                   <HomeWorkIcon />
+                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
             </NavLink>

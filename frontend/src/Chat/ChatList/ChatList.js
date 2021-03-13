@@ -1,162 +1,93 @@
-import React, { Component } from "react";
-import "./ChatList.css";
-import ChatListItems from "./ChatListItems";
+import React, { Component } from 'react'
+import './ChatList.css'
+import ChatListItems from './ChatListItems'
+import userimage from './user.jpeg'
 export default class ChatList extends Component {
-  allChatUsers = [
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      id: 1,
-      name: "Tim Hover",
-      active: true,
-      isOnline: true,
-    },
-    {
-      image:
-        "https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg",
-      id: 2,
-      name: "Ayub Rossi",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&usqp=CAU",
-      id: 3,
-      name: "Hamaad Dejesus",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRZ6tM7Nj72bWjr_8IQ37Apr2lJup_pxX_uZA&usqp=CAU",
-      id: 4,
-      name: "Eleni Hobbs",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRJo1MiPQp3IIdp54vvRDXlhbqlhXW9v1v6kw&usqp=CAU",
-      id: 5,
-      name: "Elsa Black",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image:
-        "https://huber.ghostpool.com/wp-content/uploads/avatars/3/596dfc2058143-bpfull.png",
-      id: 6,
-      name: "Kayley Mellor",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image:
-        "https://www.paintingcontest.org/components/com_djclassifieds/assets/images/default_profile.png",
-      id: 7,
-      name: "Hasan Mcculloch",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image:
-        "https://auraqatar.com/projects/Anakalabel/media//vesbrand/designer4.jpg",
-      id: 8,
-      name: "Autumn Mckee",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSM6p4C6imkewkCDW-9QrpV-MMAhOC7GnJcIQ&usqp=CAU",
-      id: 9,
-      name: "Allen Woodley",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: "https://pbs.twimg.com/profile_images/770394499/female.png",
-      id: 10,
-      name: "Manpreet David",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: "https://pbs.twimg.com/profile_images/770394499/female.png",
-      id: 10,
-      name: "Manpreet David",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: "https://pbs.twimg.com/profile_images/770394499/female.png",
-      id: 10,
-      name: "Manpreet David",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: "https://pbs.twimg.com/profile_images/770394499/female.png",
-      id: 10,
-      name: "Manpreet David",
-      active: false,
-      isOnline: true,
-    },
-  ];
-  constructor(props) {
-    super(props);
-    this.state = {
-      allChats: this.allChatUsers,
-    };
-  }
-  onCross() {
-    document.querySelector(".main__chatlist").style.display = "none";
-    document.querySelector(".main__chatcontent").style.display = "block";
-    return console.log("ghavshb");
-  }
-  render() {
-    return (
-      <div className="main__chatlist">
-        <button className="btn">
-          <i className="fa fa-plus"></i>
-          <span>New conversation</span>
-        </button>
-        <button className="btn-nobg" style={{float:"right"}} onClick={this.onCross}>
-                <i
-                  style={{ color: "black", padding: "2px",float:"right" }}
-                  className="fa fa-remove"
-                ></i>
-              </button>
-        <div className="chatlist__heading">
-          <h2>Chats</h2>
-          <button className="btn-nobg">
-            <i className="fa fa-ellipsis-h"></i>
-          </button>
-        </div>
-        <div className="chatList__search">
-          <div className="search_wrap">
-            <input type="text" placeholder="Search Here" required />
-            <button className="search-btn">
-              <i className="fa fa-search"></i>
-            </button>
-          </div>
-        </div>
-        <div className="chatlist__items">
-          {this.state.allChats.map((item, index) => {
-            return (
-              <ChatListItems
-                name={item.name}
-                key={item.id}
-                animationDelay={index + 1}
-                active={item.active ? "active" : ""}
-                isOnline={item.isOnline ? "active" : ""}
-                image={item.image}
-              />
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
+    
+      constructor(props) {
+        super(props);
+        this.state = {
+          allChats: [],
+          userToken:localStorage.getItem('jwt')
+        };
+        this.findAllChatUsers=this.findAllChatUsers.bind(this);
+      }
+      findAllChatUsers(){
+        fetch('/conversations/604b356433ba894e0a52ca21',
+        {
+          method: 'get',
+          headers: new Headers({
+            'Authorization': `Bearer ${this.state.userToken}`, 
+            'Content-Type': 'application/json'
+          })
+        }).then(response => response.json())
+        .then( result => {
+          console.log(result);
+          var data=[];
+          result.forEach(item=>{
+            item.recipients.filter(friend=>{
+              let id=item._id;
+              if(friend._id!==localStorage.getItem('id')){
+                data.push({friend,id});
+              }
+            })
+          })
+          console.log(data);
+          var myobj=[];
+          data.forEach(item=>{
+            myobj.push(item[0]);
+          })
+          this.setState({
+            allChats:data
+          });
+          console.log(this.state.allChats);
+            }).catch(err => {
+                console.log(err)
+            })
+      }
+      componentWillMount(){
+        this.findAllChatUsers();
+      }
+      
+    render() {
+        return (
+            <div className="main__chatlist">
+                 <button className="btn">
+                    <i className="fa fa-plus"></i>
+                <span>New conversation</span>
+                </button>
+                <div className="chatlist__heading">
+                    <h2>Chats</h2>
+                    <button className="btn-nobg">
+                        <i className="fa fa-ellipsis-h"></i>
+                    </button>
+                </div>
+                <div className="chatList__search">
+                    <div className="search_wrap">
+                        <input type="text" placeholder="Search Here" required />
+                        <button className="search-btn">
+                        <i className="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div className="chatlist__items">
+                    {this.state.allChats.map((item, index) => {
+                        return (
+                        <ChatListItems
+                            name={item.friend.name}
+                            key={item.friend._id}
+                            animationDelay={index + 1}
+                            active={item.friend.active ? "active" : ""}
+                            isOnline={item.friend.isOnline ? "active" : ""}
+                            image={userimage}
+                            id={item.id}
+                            handler={this.props.handler}
+                        />
+                        );
+                    })}
+                </div>
+            </div>
+            
+        )
+    }
 }
