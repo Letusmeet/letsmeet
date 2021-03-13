@@ -8,17 +8,19 @@ import UserAuth from "./accounts/UserAuth";
 import React from "react";
 import AuthNav from "./base/AuthNav";
 import UnAuthNav from "./base/UnAuthNav";
+import Chat from "./Chat/Chat";
 import OfficeList from "./dashboard/OfficeList";
 
 function App() {
   const [authenticated, setAuthenticated] = React.useState(true);
   return (
     <>
-      <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
-        {authenticated ? <AuthNav /> : <UnAuthNav />}
+      <UserAuth.Provider>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/dashboard" component={OfficeList} />
+          <Route exact path="/chat" component={Chat} />
         </Switch>
         {() => {
           if (!authenticated) {
