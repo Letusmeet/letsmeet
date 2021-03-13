@@ -25,13 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 function UnAuthNav() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,50 +37,47 @@ function UnAuthNav() {
   };
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: "#2e3847" }} position="static">
+      <AppBar style={{ backgroundColor: "#2e3847" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             OnWork
           </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <NavLink to="/signup" exact className="nav-link">
-                  <MenuItem onClick={handleClose}>Signup</MenuItem>
-                </NavLink>
-                <NavLink to="/login" exact className="nav-link">
-                  <MenuItem onClick={handleClose}>Login</MenuItem>
-                </NavLink>
-              </Menu>
-            </div>
-          )}
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <NavLink to="/signup" exact className="nav-link">
+                <MenuItem onClick={handleClose}>Signup</MenuItem>
+              </NavLink>
+              <NavLink to="/login" exact className="nav-link">
+                <MenuItem onClick={handleClose}>Login</MenuItem>
+              </NavLink>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
-
 export default UnAuthNav;

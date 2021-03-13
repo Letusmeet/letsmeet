@@ -2,11 +2,22 @@ import React from "react";
 import OfficeIcon from "./OfficeIcon";
 import { Container, Row, Col } from "react-bootstrap";
 import SaveIcon from "@material-ui/icons/Save";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      margin: theme.spacing(1),
+    },
+  })
+);
 
 function OfficeList() {
   const [officeListArray, setOfficeListArray] = React.useState([]);
+  const classes = useStyles();
 
   //get post list
   React.useEffect(() => {
@@ -20,7 +31,6 @@ function OfficeList() {
       .then((response) => {
         if (response.status == 200) {
           const arr = response.data;
-          console.log(arr);
           setOfficeListArray(arr);
         } else {
           console.log("errr", response);
@@ -31,22 +41,30 @@ function OfficeList() {
         console.log("error" + err);
         //invalid
       });
-  }, [officeListArray]);
+  }, []);
+
   return (
-    <>
-      <Container style={{ marginTop: "1%" }}>
-        <div className="shadow-sm p-3 mb-5 bg-body rounded">Add New</div>
-        <Row>
-          {officeListArray.map((office) => (
-            <Col key={office.id} xs="12" lg="4">
-              <div className="shadow  mb-2 bg-body rounded">
-                <OfficeIcon office={office} />
-              </div>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </>
+    <Container>
+      <div className="shadow-sm p-3 mb-5 bg-body rounded">
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<AddIcon />}
+        >
+          NEW
+        </Button>
+      </div>
+      <Row>
+        {officeListArray.map((office) => (
+          <Col key={office.id} xs="12" lg="4">
+            <div className="shadow  mb-2 bg-body rounded">
+              <OfficeIcon office={office} />
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
 
