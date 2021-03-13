@@ -8,8 +8,6 @@ const Conversation = require("../models/Conversation");
 /*
 Todo: jwtCheck for all routes, Socket connection (Refer this repo: https://github.com/davehowson/chat-app)
  */
-
-
 //Send a private message to someone
 /*
 Request body example: 
@@ -73,9 +71,10 @@ router.post("/chat", middleware, (req, res) => {
 });
 
 //to fetch all the conversations the person had
-router.get("/conversations",middleware, async (req, res) => {
+router.get("/conversations/:id",middleware, async (req, res) => {
   try {
-    let userId = req.user._id; //should add logged in user id
+    let userId = req.params.id; //should add logged in user id
+    console.log(userId);
     let result = await Conversation.find({ recipients: userId });
     res.status(200).json(result);
   } catch (e) {
@@ -108,7 +107,7 @@ router.get("/messages/:id",middleware, async (req, res) => {
 router.post("/new",middleware, async (req, res) => {
   try{
     const first = req.user._id;
-    const second = req.body;
+    const {second} = req.body;
     if(first === second){
       res.status(409).json({message:"Invalid body, each id should be unique"});
     }
