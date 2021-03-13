@@ -4,9 +4,12 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const Board = mongoose.model("Board");
 const Card = mongoose.model("Card");
+const middlewareadmin = require("../middleware/admin");
+const middleware = require("../middleware/user");
+const middlewaremanager = require("../middleware/manager");
 
 //to create a taskboard
-router.post("/createboard", (req, res) => {
+router.post("/createboard", middlewaremanager, (req, res) => {
   const { title, manager, description } = req.body; //requires board title, the userid which is creating as manager
   var myboard = new Board({
     //and some description about board.
@@ -25,7 +28,7 @@ router.post("/createboard", (req, res) => {
 });
 
 //to create a card
-router.post("/createcard", (req, res) => {
+router.post("/createcard", middlewaremanager, (req, res) => {
   const { title, board, description } = req.body; //requires card title, the boardId in which it is created
   var mycard = new Card({
     //and some description about card.
@@ -49,7 +52,7 @@ router.post("/createcard", (req, res) => {
 });
 
 //to add employees to board
-router.post("/addemployee", (req, res) => {
+router.post("/addemployee", middlewaremanager, (req, res) => {
   const { employee, board } = req.body; //needs id of the employee to be added to board and boardId
   console.log(employee);
   Board.findById(board)
@@ -64,7 +67,7 @@ router.post("/addemployee", (req, res) => {
 });
 
 //to remove employees from board
-router.post("/removeemployee", (req, res) => {
+router.post("/removeemployee", middlewaremanager, (req, res) => {
   const { employee, board } = req.body; //needs id of the employee to be removed to board and boardId
   Board.findById(board)
     .then((removed) => {
@@ -78,7 +81,7 @@ router.post("/removeemployee", (req, res) => {
 });
 
 //to add comment on card
-router.post("/comment", (req, res) => {
+router.post("/comment", middleware, (req, res) => {
   const { card, user, comment } = req.body; //needs cardId on which commented, userId,comment body
   Card.findById(card)
     .then((mycard) => {
@@ -99,7 +102,7 @@ router.post("/comment", (req, res) => {
 });
 
 //to change status of card
-router.post("/changestatus", (req, res) => {
+router.post("/changestatus", middlewaremanager, (req, res) => {
   const { card, status } = req.body; //needs cardId whose status to be changed and the status
   Card.findById(card)
     .then((mycard) => {
@@ -116,7 +119,7 @@ router.post("/changestatus", (req, res) => {
 });
 
 //to delete the board
-router.post("/deleteboard", (req, res) => {
+router.post("/deleteboard", middlewaremanager, (req, res) => {
   const { board } = req.body; //needs baord id to be deleted
   Board.findById(board)
     .then((found) => {
@@ -142,7 +145,7 @@ router.post("/deleteboard", (req, res) => {
 });
 
 //to delete card
-router.post("/deletecard", (req, res) => {
+router.post("/deletecard", middlewaremanager, (req, res) => {
   const { card } = req.body; //needs cardId that is to be deleted
   Card.findById(card)
     .then((mycard) => {
@@ -164,7 +167,7 @@ router.post("/deletecard", (req, res) => {
 });
 
 //to get all the cards in a particular taskboard
-router.get("/cards/:id", async (req, res) => {
+router.get("/cards/:id", middleware, async (req, res) => {
   try {
     const boardId = req.params.id;
     const cards = await Card.find({ board: boardId });
@@ -176,7 +179,7 @@ router.get("/cards/:id", async (req, res) => {
 });
 
 //to get the list of taskboards for the logged in user
-router.get("/boards/:id", async (req, res) => {
+router.get("/boards/:id", middleware, async (req, res) => {
   try {
     const UserId = req.params.id;
     const boards = await Board.find({
