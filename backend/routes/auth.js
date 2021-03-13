@@ -20,7 +20,7 @@ router.post("/signup", (req, res) => {
         const user = new User({
           email,
           password: hashedpassword,
-          name
+          name,
         });
 
         user
@@ -52,8 +52,8 @@ router.post("/signin", (req, res) => {
       .then((domatch) => {
         if (domatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email } = savedUser;
-          res.json({ token, user: { _id, name, email } });
+          const { _id, name, email, office } = savedUser;
+          res.json({ token, user: { _id, name, email, office } });
         } else {
           return res.status(422).json({ error: "Invalid Password" });
         }

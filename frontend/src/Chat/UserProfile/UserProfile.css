@@ -1,9 +1,28 @@
 .main__userprofile {
   width: 20%;
-  padding: 0 20px 0 40px;
+ padding: 0;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   position: relative;
+}
+
+.profile__card.user__profile__image {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+.profile__card{
+  text-align: center;
+}
+.profile__image>img{
+  height: 100px;
+  border-radius: 50%;
+}
+@media only screen and (max-width:1030px) and (min-width:551px){
+  .main__userprofile {
+    display: none;
+  }
 }
 @media only screen and (max-width: 550px) {
   .main__userprofile {

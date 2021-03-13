@@ -1,15 +1,11 @@
-import React, { useState, useContext } from "react";
-// import UserAuth from "./UserAuth";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { Row, Col, Alert } from "react-bootstrap";
-import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import UserAuth from "../accounts/UserAuth";
-import Footer from "../base/Footer";
+import Footer from "../../base/Footer";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -19,43 +15,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props) {
-  const { setAuthenticated } = useContext(UserAuth);
+export default function CreateRoom() {
   const history = useHistory();
 
   //submit button toggle
   const [disable, setdisable] = useState(true);
 
-  //user error msg
-  const [logMsg, setLogMsg] = useState();
-
   //getting onchange usestate
   const [name, setName] = useState({
-    email: "",
-    password: "",
+    roomName: "",
+    description: "",
   });
 
   //onchange event
   const inputEvent = (e) => {
     const changeName = e.target.name;
     const changeValue = e.target.value;
+    console.log(changeName, changeValue);
 
     // update input value
     setName((previous) => {
-      if (changeName === "email") {
+      if (changeName === "roomName") {
         return {
-          email: changeValue,
-          password: previous.password,
+          roomName: changeValue,
+          description: previous.description,
         };
-      } else {
+      } else if (changeName === "description") {
         return {
-          email: previous.email,
-          password: changeValue,
+          roomName: previous.roomName,
+          description: changeValue,
         };
       }
     });
-    //submit button state check on or off
-    name.email === "" || name.password === ""
+
+    //submit button state check on or of
+    name.roomName === "" || name.description === ""
       ? setdisable(true)
       : setdisable(false);
   };
@@ -63,40 +57,34 @@ export default function Login(props) {
   // on form submit
   const onSubmits = async (e) => {
     e.preventDefault();
-
     console.log("submitted");
 
     axios
-      .post("/signin", {
-        email: name.email,
-        password: name.password,
-      })
+      .post(
+        "/createroom",
+        {
+          description: name.description,
+          roomname: name.roomName,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
+          },
+        }
+      )
       .then(async (response) => {
-        console.log(response);
         if (response.status == 200) {
-          setAuthenticated(true);
-          window.localStorage.setItem("csrfToken", response.data.token);
-          window.localStorage.setItem("isAuth", true);
-          window.localStorage.setItem("id", response.data.user._id);
-          history.push("/home");
+          history.push("/home"); //send to home
         }
       })
       .catch((err) => {
-        console.error("err :" + err);
-        setLogMsg("Opps! Please try again");
+        console.error("error");
       });
   };
-
   const classes = useStyles();
-
   return (
     <>
-      <div className="login_outer shadow-lg   rounded">
-        {/* message error */}
-        <Alert style={{ textAlign: "center" }} variant="danger">
-          {logMsg}
-        </Alert>
-
+      <div className="signup_outer shadow-lg   rounded">
         <form
           onSubmit={onSubmits}
           style={{ textAlign: "center" }}
@@ -106,22 +94,19 @@ export default function Login(props) {
         >
           <TextField
             required={true}
-            id="standard-basic"
-            label="Email"
+            label="Room Name"
             autoComplete="off"
-            value={name.email}
+            value={name.roomName}
             onChange={inputEvent}
-            name="email"
+            name="roomName"
           />
           <TextField
             required={true}
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={name.password}
+            label="Description"
+            autoComplete="off"
+            value={name.description}
             onChange={inputEvent}
-            name="password"
+            name="description"
           />
           <Row
             style={{
@@ -129,19 +114,18 @@ export default function Login(props) {
             }}
           >
             <Col>
-              <Button variant="contained" color="primary">
-                <small style={{ fontSize: "0.6rem" }}>forget password</small>
+              <Button type="submit" variant="contained" color="primary">
+                cancel
               </Button>
             </Col>
             <Col>
               <Button
-                style={{ padding: "11px 40px 11px 40px" }}
                 type="submit"
                 variant="contained"
                 color="primary"
                 disabled={disable}
               >
-                Login
+                Create
               </Button>
             </Col>
           </Row>

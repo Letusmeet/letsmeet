@@ -5,7 +5,6 @@ import "./ChatContent.css";
 import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
-
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [
@@ -76,6 +75,7 @@ export default class ChatContent extends Component {
     this.messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
   updateUser(){
+    console.log(this.state)
     fetch("/messages/"+this.props.currentConvo,
     {
       method: 'get',
@@ -126,7 +126,7 @@ export default class ChatContent extends Component {
             type: "",
             msg: this.state.msg,
             image:
-              "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
+              userimage,
           });
           this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
@@ -135,7 +135,7 @@ export default class ChatContent extends Component {
       }
     });
     this.scrollToBottom();
-    this.updateUser();
+        this.updateUser();
   }
   componentDidUpdate(prevProps) {
     if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
@@ -154,14 +154,18 @@ export default class ChatContent extends Component {
           type: "",
           msg: this.state.msg,
           image:
-            userimage,
+          userimage,
         });
         this.setState({ chat: [...this.chatItms] });
         this.scrollToBottom();
         this.setState({ msg: "" });
       }
-    })
-    
+    });
+  };
+  onADD() {
+    document.querySelector(".main__chatlist").style.display = "block";
+    document.querySelector(".main__chatcontent").style.display = "none";
+    return console.log("ghavshb");
   }
   
   render() {
@@ -174,14 +178,17 @@ export default class ChatContent extends Component {
                 isOnline="active"
                 image={userimage}
               />
-              <p>{this.state.name}</p>
+               <p>{this.state.name}</p>
             </div>
           </div>
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg">
-                <i className="fa fa-cog"></i>
+            <button className="btn-nobg" onClick={this.onADD}>
+                <i
+                  style={{ color: "black", padding: "2px" }}
+                  className="fa fa-plus"
+                ></i>
               </button>
             </div>
           </div>
@@ -222,3 +229,5 @@ export default class ChatContent extends Component {
     );
   }
 }
+  
+
