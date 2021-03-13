@@ -8,16 +8,18 @@ import UserAuth from "./accounts/UserAuth";
 import React from "react";
 import AuthNav from "./base/AuthNav";
 import UnAuthNav from "./base/UnAuthNav";
+import Chat from "./Chat/Chat"
 
 function App() {
   const [authenticated, setAuthenticated] = React.useState(true);
   return (
     <>
       <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
-        {authenticated ? <AuthNav /> : <UnAuthNav />}
+     {authenticated ? <AuthNav /> : <UnAuthNav />}
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/chat" component={Chat} />
         </Switch>
         <Footer />
       </UserAuth.Provider>
