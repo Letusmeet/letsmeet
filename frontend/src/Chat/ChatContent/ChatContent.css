@@ -1,6 +1,6 @@
 .main__chatcontent {
     flex-grow: 1;
-    padding: 20px 40px;
+    padding: 20px 20px;
     max-width: 63%;
     border-right: 1px solid #ebe7fb;
   }
@@ -27,7 +27,7 @@
     cursor: pointer;
   }
   .content__body {
-    max-height: calc(100vh - calc(100vh / 2));
+    max-height: 82%;
     overflow: auto;
   }
   .chat__item {
