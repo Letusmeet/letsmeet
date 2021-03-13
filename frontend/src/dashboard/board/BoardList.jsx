@@ -17,15 +17,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function BoardList() {
-  const [officeListArray, setOfficeListArray] = React.useState([]);
+function BoardList(props) {
+  console.log(props);
+  const [boardListArray, setBoardListArray] = React.useState([]);
   const classes = useStyles();
 
   //get post list
   React.useEffect(() => {
     console.log("Bearer " + window.localStorage.getItem("csrfToken"));
     axios
-      .get(`boards/${window.localStorage.getItem("id")}`, {
+      .get(`fetchboard/${props.location.aboutProps.roomId}`, {
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
         },
@@ -33,7 +34,7 @@ function BoardList() {
       .then((response) => {
         if (response.status == 200) {
           const arr = response.data;
-          setOfficeListArray(arr);
+          setBoardListArray(arr);
         } else {
           console.log("errr", response);
           //error message
@@ -48,9 +49,28 @@ function BoardList() {
   return (
     <>
       <DashboardNav />
-      {/* <Container>
+
+      <Container>
+        <NavLink
+          to={{
+            pathname: "/createboard",
+            aboutProps: {
+              roomId: props.location.aboutProps.roomId,
+            },
+          }}
+          exact
+          activeClassName="active_nav"
+          className="nav-link"
+        >
+          <div style={{ marginLeft: "65%" }}>
+            <Button>
+              <AddIcon style={{ color: "#de3e4d", fontWeight: "bold" }} />
+            </Button>
+          </div>
+        </NavLink>
+
         <Row>
-          {officeListArray.map((office) => (
+          {boardListArray.map((office) => (
             <Col key={office.id} xs="12" lg="4">
               <div className="shadow  mb-2 bg-body rounded">
                 <Board office={office} />
@@ -58,9 +78,7 @@ function BoardList() {
             </Col>
           ))}
         </Row>
-      </Container> */}
-      <Board />
-      <Board />
+      </Container>
     </>
   );
 }

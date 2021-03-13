@@ -10,27 +10,32 @@ const middleware = require("../middleware/user");
 const middlewaremanager = require("../middleware/manager");
 
 //to create a taskboard
-router.post("/createboard/:roomid", middlewaremanager, (req, res) => {
-  const { title, manager, description } = req.body; //requires board title, the userid which is creating as manager
+router.post("/createboard/:roomid", middlewareadmin, (req, res) => {
+  const { title, description } = req.body; //requires board title, the userid which is creating as manager
   var myboard = new Board({
     //and some description about board.
     boardtitle: title,
-    manager,
     description,
-    room: req.params.roomid
+    room: req.params.roomid,
   });
-  myboard.save()
-    .then(board => {
+  myboard
+    .save()
+    .then((board) => {
       console.log(board._id);
-      Room.findByIdAndUpdate(req.params.roomid, {
-        $push: { boards: board._id }
-      }, { new: true }).then(() => {
-        res.json({ board, message: "Board created successfully!" });
-      }).catch(err => {
-        console.log(err);
-        res.json({ err, message: "Some error occured, please try again!" });
-      })
-
+      Room.findByIdAndUpdate(
+        req.params.roomid,
+        {
+          $push: { boards: board._id },
+        },
+        { new: true }
+      )
+        .then(() => {
+          res.json({ board, message: "Board created successfully!" });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.json({ err, message: "Some error occured, please try again!" });
+        });
     })
     .catch((err) => {
       console.log(err);

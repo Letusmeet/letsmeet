@@ -12,6 +12,7 @@ import BoardList from "./dashboard/board/BoardList";
 import CreateRoom from "./dashboard/room/CreateRoom";
 import CardList from "./dashboard/card/CardList";
 import CreateOffice from "./dashboard/CreateOffice";
+import CreateBoard from "./dashboard/board/CreateBoard";
 function App() {
   const [authenticated, setAuthenticated] = React.useState(false);
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/createroom" component={CreateRoom} />
           <Route exact path="/cardlist" component={CardList} />
           <Route exact path="/createoffice" component={CreateOffice} />
+          <Route exact path="/createboard" component={CreateBoard} />
         </Switch>
         {() => {
           if (!authenticated) {
