@@ -63,7 +63,7 @@ export default function CreateRoom() {
       .post(
         "/createroom",
         {
-          // description: name.description,
+          description: name.description,
           roomname: name.roomName,
         },
         {

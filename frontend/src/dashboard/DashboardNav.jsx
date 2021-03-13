@@ -26,22 +26,6 @@ function OfficeList() {
           <Row>
             <Col lg="2">
               <NavLink
-                to="/boardlist"
-                exact
-                activeClassName="active_nav"
-                className="nav-link"
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<DashboardIcon />}
-                >
-                  Boards
-                </Button>
-              </NavLink>
-            </Col>
-            <Col lg="2">
-              <NavLink
                 to="/home"
                 exact
                 activeClassName="active_nav"

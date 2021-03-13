@@ -72,7 +72,7 @@ export default function Login(props) {
         password: name.password,
       })
       .then(async (response) => {
-        console.log(response.status);
+        console.log(response);
         if (response.status == 200) {
           setAuthenticated(true);
           window.localStorage.setItem("csrfToken", response.data.token);

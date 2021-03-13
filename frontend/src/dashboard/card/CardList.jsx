@@ -1,5 +1,5 @@
 import React from "react";
-import Board from "./Board";
+import Card from "./Cards";
 import { Container, Row, Col } from "react-bootstrap";
 import SaveIcon from "@material-ui/icons/Save";
 import axios from "axios";
@@ -7,8 +7,7 @@ import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
-import DashboardNav from "./DashboardNav";
-import Room from "./Room";
+import DashboardNav from "../DashboardNav";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function RoomList() {
+function CardList() {
   //   const [officeListArray, setOfficeListArray] = React.useState([]);
   //   const classes = useStyles();
 
@@ -48,61 +47,23 @@ function RoomList() {
 
   return (
     <>
-      <NavLink
-        to="/createroom"
-        exact
-        activeClassName="active_nav"
-        className="nav-link"
-      >
-        <div style={{ marginLeft: "65%" }}>
-          <Button>
-            <AddIcon style={{ color: "#de3e4d", fontWeight: "bold" }} />
-          </Button>
-        </div>
-      </NavLink>
-
-      {/* <Row>
+      <DashboardNav />
+      <Container>
+        {/* <Row>
           {officeListArray.map((office) => (
             <Col key={office.id} xs="12" lg="4">
               <div className="shadow  mb-2 bg-body rounded">
-                <Room />
+                <Card office={office} />
               </div>
             </Col>
           ))}
         </Row> */}
-
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
+        <Card />
+        <Card />
+        <Card />
+      </Container>
     </>
   );
 }
 
-export default RoomList;
+export default CardList;

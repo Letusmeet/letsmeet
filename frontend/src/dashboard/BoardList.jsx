@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function OfficeList() {
+function BoardList() {
   const [officeListArray, setOfficeListArray] = React.useState([]);
   const classes = useStyles();
 
@@ -63,4 +63,4 @@ function OfficeList() {
   );
 }
 
-export default OfficeList;
+export default BoardList;

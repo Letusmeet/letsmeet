@@ -10,7 +10,7 @@ const middlewareadmin = require('../middleware/admin')
 const middleware = require('../middleware/user')
 
 //to create office
-router.post('/createoffice', middlewareadmin, async (req, res) => {
+router.post('/createoffice', async (req, res) => {
     const { officename } = req.body
     if (!officename) {
         return res.json("please give the office name")
@@ -26,7 +26,15 @@ router.post('/createoffice', middlewareadmin, async (req, res) => {
             admin: req.user._id,
             generalchat: newConversation._id
         })
-        office.save().then(() => {
+        office.save().then(result => {
+            User.findByIdAndUpdate(req.user._id, {
+                $set: { officeid: result._id },
+                $set: { admin: true }
+            }, { new: true }).then(() => {
+                res.json("office id saved in user")
+            }).catch(err => {
+                console.log(err);
+            })
             return res.json('virtual office created succesfully')
         }).catch(err => {
             console.log(err);
@@ -104,7 +112,22 @@ router.post('/searchuser', middlewareadmin, (req, res) => {
         })
 })
 
-
+//add user to office
+router.post('/adduseroffice/:id/:officeid', middlewareadmin, (req, res) => {
+    Office.findByIdAndUpdate(req.params.Officeid, {
+        $push: { membersoffice: { memberid: req.params.id } }
+    }, { new: true }).then(() => {
+        User.findByIdAndUpdate(req.params.id, {
+            $push: { office: req.params.office }
+        }, { new: true }).then(() => {
+            res.json("Added to office Successfully")
+        }).catch(err => {
+            console.log(err);
+        })
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 
 module.exports = router;

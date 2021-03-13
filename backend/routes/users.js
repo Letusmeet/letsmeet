@@ -65,4 +65,11 @@ router.post('/fetchroom', middleware, (req, res) => {
     res.json(req.user.rooms);
 })
 
+router.post('/fetchofficemembers', middleware, (req, res) => {
+    Office.findById(req.user.office).then(result => {
+        res.json(result.membersoffice)
+    })
+})
+
 module.exports = router;
+
