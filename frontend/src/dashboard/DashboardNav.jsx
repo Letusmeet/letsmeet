@@ -1,6 +1,6 @@
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import React from "react";
-import Board from "./Board";
+import Board from "./board/Board";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import SaveIcon from "@material-ui/icons/Save";
 import axios from "axios";

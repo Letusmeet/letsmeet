@@ -2,9 +2,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
-import BoardList from "./BoardList";
+import BoardList from "./board/BoardList";
 import DashboardNav from "./DashboardNav";
-import RoomList from "./RoomList";
+import RoomList from "./room/RoomList";
 import { Container, Row, Col } from "react-bootstrap";
 import UserList from "./UserList";
 

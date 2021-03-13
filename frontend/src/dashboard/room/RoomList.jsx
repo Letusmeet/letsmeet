@@ -1,5 +1,5 @@
 import React from "react";
-import Board from "./Board";
+import Board from "../board/Board";
 import { Container, Row, Col } from "react-bootstrap";
 import SaveIcon from "@material-ui/icons/Save";
 import axios from "axios";
@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
-import DashboardNav from "./DashboardNav";
+import DashboardNav from "../DashboardNav";
 import Room from "./Room";
 
 const useStyles = makeStyles((theme: Theme) =>

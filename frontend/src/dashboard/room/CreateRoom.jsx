@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 import { Row, Col, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import Footer from "../base/Footer";
+import Footer from "../../base/Footer";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {

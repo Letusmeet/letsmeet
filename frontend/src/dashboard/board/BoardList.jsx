@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
-import DashboardNav from "./DashboardNav";
+import DashboardNav from "../DashboardNav";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

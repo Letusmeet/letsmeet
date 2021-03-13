@@ -11,8 +11,8 @@ import UnAuthNav from "./base/UnAuthNav";
 import Chat from "./Chat/Chat";
 import Home from "./dashboard/Home";
 import Navbar from "./base/Navbar";
-import BoardList from "./dashboard/BoardList";
-import CreateRoom from "./dashboard/CreateRoom";
+import BoardList from "./dashboard/board/BoardList";
+import CreateRoom from "./dashboard/room/CreateRoom";
 import CardList from "./dashboard/card/CardList";
 function App() {
   const [authenticated, setAuthenticated] = React.useState(false);
