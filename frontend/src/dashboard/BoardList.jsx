@@ -1,11 +1,13 @@
 import React from "react";
-import OfficeIcon from "./OfficeIcon";
+import Board from "./Board";
 import { Container, Row, Col } from "react-bootstrap";
 import SaveIcon from "@material-ui/icons/Save";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import { NavLink, Switch, Route } from "react-router-dom";
+import DashboardNav from "./DashboardNav";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,27 +46,20 @@ function OfficeList() {
   }, []);
 
   return (
-    <Container>
-      <div className="shadow-sm p-3 mb-5 bg-body rounded">
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          startIcon={<AddIcon />}
-        >
-          NEW
-        </Button>
-      </div>
-      <Row>
-        {officeListArray.map((office) => (
-          <Col key={office.id} xs="12" lg="4">
-            <div className="shadow  mb-2 bg-body rounded">
-              <OfficeIcon office={office} />
-            </div>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <>
+      <DashboardNav />
+      <Container>
+        <Row>
+          {officeListArray.map((office) => (
+            <Col key={office.id} xs="12" lg="4">
+              <div className="shadow  mb-2 bg-body rounded">
+                <Board office={office} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 }
 
