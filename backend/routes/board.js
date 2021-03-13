@@ -167,7 +167,11 @@ router.post("/deletecard", middlewaremanager, (req, res) => {
 });
 
 //to get all the cards in a particular taskboard
+<<<<<<< HEAD
 router.get("/cards/:id", middlewaremanager, async (req, res) => {
+=======
+router.get("/cards/:id", middleware, async (req, res) => {
+>>>>>>> branch-dashboard-f
   try {
     const boardId = req.params.id;
     const cards = await Card.find({ board: boardId });
@@ -179,7 +183,11 @@ router.get("/cards/:id", middlewaremanager, async (req, res) => {
 });
 
 //to get the list of taskboards for the logged in user
+<<<<<<< HEAD
 router.get("/boards/:id", middlewaremanager, async (req, res) => {
+=======
+router.get("/boards/:id", middleware, async (req, res) => {
+>>>>>>> branch-dashboard-f
   try {
     const UserId = req.params.id;
     const boards = await Board.find({

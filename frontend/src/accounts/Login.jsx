@@ -78,7 +78,7 @@ export default function Login(props) {
           window.localStorage.setItem("csrfToken", response.data.token);
           window.localStorage.setItem("isAuth", true);
           window.localStorage.setItem("id", response.data.user._id);
-          history.push("/");
+          history.push("/dashboard");
         }
       })
       .catch((err) => {

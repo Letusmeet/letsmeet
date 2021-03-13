@@ -15,6 +15,7 @@ import AccessibilityNewSharpIcon from "@material-ui/icons/AccessibilityNewSharp"
 import axios from "axios";
 import UserAuth from "../accounts/UserAuth";
 import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function TemporaryDrawer() {
   const { setAuthenticated } = React.useContext(UserAuth);
@@ -22,10 +23,6 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false,
   });
-
-  const dashboardHandler = () => {
-    history.push("/dashboard");
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -65,12 +62,20 @@ export default function TemporaryDrawer() {
           />
           <Divider />
           <List>
-            <ListItem onClick={dashboardHandler} button>
-              <ListItemIcon>
-                <HomeWorkIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
+            <NavLink
+              to="/dashboard"
+              exact
+              activeClassName="active_nav"
+              className="nav-link"
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <HomeWorkIcon />
+                </ListItemIcon>
+
+                <ListItemText primary="Office" />
+              </ListItem>
+            </NavLink>
 
             <ListItem button>
               <ListItemIcon>
@@ -78,7 +83,6 @@ export default function TemporaryDrawer() {
               </ListItemIcon>
               <ListItemText primary="Setting" />
             </ListItem>
-
             <ListItem button>
               <ListItemIcon>
                 <AccessibilityNewSharpIcon />
