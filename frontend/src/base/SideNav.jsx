@@ -69,7 +69,7 @@ export default function TemporaryDrawer() {
             >
               <ListItem button>
                 <ListItemIcon>
-                    <AccessibilityNewSharpIcon />
+                    <HomeWorkIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>

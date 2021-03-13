@@ -5,18 +5,13 @@
   body {
     height: 100%;
   }
-  #root {
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
+  
   .__main {
-    max-width: 90%;
-    margin: auto;
+    max-width: 100%;
+    
     background-color: #fff;
-    min-height: 80vh;
+    max-height: 100vh;
+    box-sizing: border-box;
     width: 100%;
     border-radius: 10px;
     padding: 20px;
