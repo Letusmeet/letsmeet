@@ -7,6 +7,9 @@ const RoomSchema = new mongoose.Schema({
     description: {
         type: String
     },
+    officeid: {
+        type: String
+    },
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -14,7 +17,6 @@ const RoomSchema = new mongoose.Schema({
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-
     }],
     manager: [{
         type: mongoose.Schema.Types.ObjectId,

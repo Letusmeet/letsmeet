@@ -33,15 +33,15 @@ const userSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Office'
     },
-    requests:[{
+    requests: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    sentrequests:[{
+    sentrequests: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    friends:[{
+    friends: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }]
