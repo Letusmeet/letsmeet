@@ -4,6 +4,6 @@ import AuthNav from "./AuthNav";
 import UnAuthNav from "./UnAuthNav";
 
 function NavBar(props) {
-  return <>{props.value.authenticated ? <AuthNav /> : <UnAuthNav />}</>;
+  return <>{props.authenticated ? <AuthNav /> : <UnAuthNav />}</>;
 }
 export default NavBar;

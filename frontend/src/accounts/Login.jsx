@@ -9,7 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
-
+import Footer from "../base/Footer";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -78,7 +78,7 @@ export default function Login(props) {
           window.localStorage.setItem("csrfToken", response.data.token);
           window.localStorage.setItem("isAuth", true);
           window.localStorage.setItem("id", response.data.user._id);
-          history.push("/");
+          history.push("/dashboard");
         }
       })
       .catch((err) => {
@@ -90,61 +90,64 @@ export default function Login(props) {
   const classes = useStyles();
 
   return (
-    <div className="login_outer shadow-lg   rounded">
-      {/* message error */}
-      <Alert style={{ textAlign: "center" }} variant="danger">
-        {logMsg}
-      </Alert>
+    <>
+      <div className="login_outer shadow-lg   rounded">
+        {/* message error */}
+        <Alert style={{ textAlign: "center" }} variant="danger">
+          {logMsg}
+        </Alert>
 
-      <form
-        onSubmit={onSubmits}
-        style={{ textAlign: "center" }}
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          required={true}
-          id="standard-basic"
-          label="Email"
+        <form
+          onSubmit={onSubmits}
+          style={{ textAlign: "center" }}
+          className={classes.root}
+          noValidate
           autoComplete="off"
-          value={name.email}
-          onChange={inputEvent}
-          name="email"
-        />
-        <TextField
-          required={true}
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          value={name.password}
-          onChange={inputEvent}
-          name="password"
-        />
-        <Row
-          style={{
-            width: "90%",
-          }}
         >
-          <Col>
-            <Button variant="contained" color="primary">
-              <small style={{ fontSize: "0.6rem" }}>forget password</small>
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              style={{ padding: "11px 40px 11px 40px" }}
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={disable}
-            >
-              Login
-            </Button>
-          </Col>
-        </Row>
-      </form>
-    </div>
+          <TextField
+            required={true}
+            id="standard-basic"
+            label="Email"
+            autoComplete="off"
+            value={name.email}
+            onChange={inputEvent}
+            name="email"
+          />
+          <TextField
+            required={true}
+            id="standard-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={name.password}
+            onChange={inputEvent}
+            name="password"
+          />
+          <Row
+            style={{
+              width: "90%",
+            }}
+          >
+            <Col>
+              <Button variant="contained" color="primary">
+                <small style={{ fontSize: "0.6rem" }}>forget password</small>
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                style={{ padding: "11px 40px 11px 40px" }}
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={disable}
+              >
+                Login
+              </Button>
+            </Col>
+          </Row>
+        </form>
+      </div>
+      <Footer />
+    </>
   );
 }
