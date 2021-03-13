@@ -75,6 +75,7 @@ export default class ChatContent extends Component {
     this.messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
   updateUser(){
+    console.log(this.state)
     fetch("/messages/"+this.props.currentConvo,
     {
       method: 'get',
@@ -125,7 +126,7 @@ export default class ChatContent extends Component {
             type: "",
             msg: this.state.msg,
             image:
-              "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
+              userimage,
           });
           this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
@@ -134,7 +135,7 @@ export default class ChatContent extends Component {
       }
     });
     this.scrollToBottom();
-    this.updateUser();
+        this.updateUser();
   }
   componentDidUpdate(prevProps) {
     if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
@@ -183,8 +184,11 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg">
-                <i className="fa fa-cog"></i>
+            <button className="btn-nobg" onClick={this.onADD}>
+                <i
+                  style={{ color: "black", padding: "2px" }}
+                  className="fa fa-plus"
+                ></i>
               </button>
             </div>
           </div>

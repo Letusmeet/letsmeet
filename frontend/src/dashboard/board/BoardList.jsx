@@ -48,7 +48,7 @@ function BoardList() {
   return (
     <>
       <DashboardNav />
-      <Container>
+      {/* <Container>
         <Row>
           {officeListArray.map((office) => (
             <Col key={office.id} xs="12" lg="4">
@@ -58,7 +58,9 @@ function BoardList() {
             </Col>
           ))}
         </Row>
-      </Container>
+      </Container> */}
+      <Board />
+      <Board />
     </>
   );
 }
