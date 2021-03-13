@@ -1,8 +1,17 @@
 .main__chatlist {
   border-right: 1px solid #ebe7fb;
-  padding: 0 40px 0 0px;
+  padding: 0;
+ 
 }
-
+@media only screen and (max-width:550px){
+  .main__chatlist{
+    display: none;
+    height: 100% ;
+  }
+  .chatlist__items{
+    max-height: 75% !important;
+  }
+}
 .chatlist__heading {
   display: flex;
   justify-content: space-between;
@@ -42,14 +51,15 @@
 .chatlist__items {
   margin-top: 30px;
   overflow: auto;
-  max-height: calc(100vh - calc(100vh / 2));
+  max-height: 75%;
 }
 @media only screen and (max-width: 1030px) and (min-width: 549px) {
   .chatlist__items {
-    min-height: 80%;
+    max-height: 80%;
   }
   .main__chatlist {
     padding: 0;
+    
   }
   .cross {
     display: none;

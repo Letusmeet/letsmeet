@@ -110,6 +110,11 @@ export default class ChatList extends Component {
       allChats: this.allChatUsers,
     };
   }
+  onCross() {
+    document.querySelector(".main__chatlist").style.display = "none";
+    document.querySelector(".main__chatcontent").style.display = "block";
+    return console.log("ghavshb");
+  }
   render() {
     return (
       <div className="main__chatlist">
@@ -117,6 +122,12 @@ export default class ChatList extends Component {
           <i className="fa fa-plus"></i>
           <span>New conversation</span>
         </button>
+        <button className="btn-nobg" style={{float:"right"}} onClick={this.onCross}>
+                <i
+                  style={{ color: "black", padding: "2px",float:"right" }}
+                  className="fa fa-remove"
+                ></i>
+              </button>
         <div className="chatlist__heading">
           <h2>Chats</h2>
           <button className="btn-nobg">

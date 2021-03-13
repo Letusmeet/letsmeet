@@ -110,7 +110,7 @@ export default class ChatContent extends Component {
   };
   onADD() {
     document.querySelector(".main__chatlist").style.display = "block";
-    document.querySelector(".main__chatcontent").style.opacity = "0";
+    document.querySelector(".main__chatcontent").style.display = "none";
     return console.log("ghavshb");
   }
   render() {
