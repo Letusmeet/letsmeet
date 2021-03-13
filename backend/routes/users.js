@@ -66,19 +66,56 @@ router.post('/fetchroom', middleware, (req, res) => {
 })
 
 //to fetch userprofile
-router.post('/profile',middleware,(req,res)=>{
+router.post('/profile', middleware, (req, res) => {
     User.findById(req.user._id).then(me => {
         res.status(200).json(me);
     }).catch(err => {
         res.status(500).json("Some error occured, please try again!");
-    })  
+    })
 })
-module.exports = router;
+
+
+//to fetch office member
 router.post('/fetchofficemembers', middleware, (req, res) => {
     Office.findById(req.user.office).then(result => {
         res.json(result.membersoffice)
     })
 })
+
+
+//to fetch board from room id
+router.post('/fetchboard/:id', middleware, (req, res) => {
+    Room.findById(req.params.id)
+        .populate("boards")
+        .then(result => {
+            res.json(result.boards)
+        }).catch(err => {
+            res.json('server error')
+        })
+})
+
+//to room from officeid
+router.post('/fetchroom/:id', middleware, (req, res) => {
+    Office.findById(req.params.id)
+        .populate("rooms")
+        .then(result => {
+            res.json(result.rooms)
+        }).catch(err => {
+            res.json('server error')
+        })
+})
+
+//to fetch card from boardid
+router.post('/fetchcard/:id', middleware, (req, res) => {
+    Board.findById(req.params.id)
+        .populate("cards")
+        .then(result => {
+            res.json(result.cards)
+        }).catch(err => {
+            res.json('server error')
+        })
+})
+
 
 module.exports = router;
 

@@ -51,8 +51,8 @@ router.post("/createcard", middlewaremanager, (req, res) => {
   mycard
     .save()
     .then((card) => {
-      Board.findByIdAndUpdate(board, { $push: { cards: mycard._id } }).then(
-        (added) => {
+      Board.findByIdAndUpdate(board, { $push: { cards: card._id } }).then(
+        () => {
           res.json({ card, message: "Card created successfully!" });
         }
       );
