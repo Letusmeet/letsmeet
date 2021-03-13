@@ -31,7 +31,7 @@ function OfficeList() {
         console.log("error" + err);
         //invalid
       });
-  }, [officeListArray]);
+  }, []);
   return (
     <>
       <Container style={{ marginTop: "1%" }}>

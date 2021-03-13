@@ -15,6 +15,7 @@ import axios from "axios";
 import UserAuth from "../accounts/UserAuth";
 import { useHistory } from "react-router-dom";
 
+import { NavLink } from "react-router-dom";
 export default function TemporaryDrawer() {
   const { setAuthenticated } = React.useContext(UserAuth);
   const history = useHistory();
@@ -60,8 +61,12 @@ export default function TemporaryDrawer() {
           />
           <Divider />
           <List>
-            {["Office", "Setting", "Help"].map((text, index) => (
-              <ListItem button key={text}>
+            <NavLink
+              className="nav-link"
+              to="/dashboard"
+              activeClassName="active_nav"
+            >
+              <ListItem button>
                 <ListItemIcon>
                   {index === 0 ? (
                     <HomeWorkIcon />
@@ -71,15 +76,35 @@ export default function TemporaryDrawer() {
                     <AccessibilityNewSharpIcon />
                   )}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Dashboard" />
               </ListItem>
-            ))}
-            {/* <ListItem onClick={LogOut} button>
-              <ListItemIcon>
-                <ExitToAppSharpIcon style={{ color: "red" }} />
-              </ListItemIcon>
-              <ListItemText primary="logout" />
-            </ListItem> */}
+            </NavLink>
+
+            <NavLink
+              className="nav-link"
+              to="/dashboard"
+              activeClassName="active_nav"
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Setting" />
+              </ListItem>
+            </NavLink>
+
+            <NavLink
+              className="nav-link"
+              to="/dashboard"
+              activeClassName="active_nav"
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <AccessibilityNewSharpIcon />
+                </ListItemIcon>
+                <ListItemText primary="Help" />
+              </ListItem>
+            </NavLink>
           </List>
         </div>
       </Drawer>
