@@ -1,0 +1,41 @@
+
+    .button_div{
+      align-items: center;
+    }
+
+     .comments_modal{
+       width: 40% !important;
+       background-color: whitesmoke;
+        padding: 60px;
+        box-shadow: 25px 25px 50px rgb(216, 214, 214) !important;
+       z-index: 2000 !important;
+       min-height: 300px;
+       position: absolute;
+       top: 0%;
+       left: 50%;
+       transform: translate(-50% , 50%);
+       border-radius: 10px;
+     }
+     .modal_text{
+       font-size: 1.3rem;
+       letter-spacing: 2px;
+       line-height: 30px;
+     }
+     @media only screen and (max-width:570px){
+       .modal_assesment{
+         transform:translate(-50%,10%);
+         width: 80% !important;
+       }
+     }
+     .modal_button{ 
+        width: 120px;
+        padding: 8px;
+        color: black;
+        background-color: white;
+        border-radius: 10px;
+        border: 2px solid rgb(27, 63, 92);
+    }
+    .modal_button:hover{
+      color: white;
+      background-color: rgb(12 26 45 / 74%);
+    }

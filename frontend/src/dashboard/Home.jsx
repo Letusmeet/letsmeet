@@ -7,7 +7,7 @@ import DashboardNav from "./DashboardNav";
 import RoomList from "./room/RoomList";
 import { Container, Row, Col } from "react-bootstrap";
 import UserList from "./UserList";
-
+import Chatcontent from "../Chat/ChatContent/ChatContent"
 function Home() {
   return (
     <>
@@ -18,7 +18,9 @@ function Home() {
             <RoomList />
           </div>
         </Col>
-        <Col xs lg="4"></Col>
+        <Col xs lg="4">
+        <Chatcontent></Chatcontent>
+        </Col>
         <Col xs lg="4">
           <UserList />
         </Col>
