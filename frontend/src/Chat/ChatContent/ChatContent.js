@@ -5,7 +5,6 @@ import "./ChatContent.css";
 import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
-
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [
@@ -154,14 +153,18 @@ export default class ChatContent extends Component {
           type: "",
           msg: this.state.msg,
           image:
-            userimage,
+          userimage,
         });
         this.setState({ chat: [...this.chatItms] });
         this.scrollToBottom();
         this.setState({ msg: "" });
       }
-    })
-    
+    });
+  };
+  onADD() {
+    document.querySelector(".main__chatlist").style.display = "block";
+    document.querySelector(".main__chatcontent").style.display = "none";
+    return console.log("ghavshb");
   }
   
   render() {
@@ -174,7 +177,7 @@ export default class ChatContent extends Component {
                 isOnline="active"
                 image={userimage}
               />
-              <p>{this.state.name}</p>
+               <p>{this.state.name}</p>
             </div>
           </div>
 
@@ -222,3 +225,5 @@ export default class ChatContent extends Component {
     );
   }
 }
+  
+
