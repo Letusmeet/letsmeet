@@ -81,7 +81,8 @@ export default function Login(props) {
           if (response.data.user.office == undefined) {
             history.push("/createoffice");
           } else {
-            window.localStorage.setItem("officeID", response.office);
+            console.log(response.data.user.office);
+            window.localStorage.setItem("officeID", response.data.user.office);
             history.push("/home");
           }
         }

@@ -61,7 +61,7 @@ export default function CreateRoom() {
 
     axios
       .post(
-        "/createroom",
+        `/createroom/${window.localStorage.getItem("officeID")}`,
         {
           description: name.description,
           roomname: name.roomName,
