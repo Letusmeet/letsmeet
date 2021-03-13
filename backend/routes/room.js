@@ -15,16 +15,28 @@ router.post('/createoffice', middlewareadmin, (req, res) => {
     if (!officename) {
         return res.json("please give the office name")
     }
-    const office = new Office({
-        name: officename,
-        admin: req.user._id
-    })
-    office.save().then(() => {
-        return res.json('virtual office created succesfully')
-    }).catch(err => {
-        console.log(err);
-    })
+    try {
+        let recipients = [];
+        recipients.push(req.user._id);
+        const newConversation = await Conversation.create({ recipients: recipients }, { name: general });
+        console.log(newConversation)
+        res.status(200).json({ message: "general chat available" });
+        const office = new Office({
+            name: officename,
+            admin: req.user._id,
+            generalchat: newConversation._id
+        })
+        office.save().then(() => {
+            return res.json('virtual office created succesfully')
+        }).catch(err => {
+            console.log(err);
+        })
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ message: "Server error" });
+    }
 })
+
 
 //to create rooms
 router.post('/createroom', middlewareadmin, (req, res) => {
