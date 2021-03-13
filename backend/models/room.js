@@ -4,6 +4,9 @@ const RoomSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    description: {
+        type: String
+    },
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
