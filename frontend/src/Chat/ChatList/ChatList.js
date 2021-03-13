@@ -110,9 +110,17 @@ export default class ChatList extends Component {
           allChats: this.allChatUsers,
         };
       }
+      onCross(){
+        document.querySelector(".main__chatlist").style.display="none"
+        document.querySelector(".main__chatcontent").style.opacity="1"
+        console.log("fcasbdxv")
+      }
     render() {
         return (
             <div className="main__chatlist">
+              <button className="btn-nobg cross" onClick={this.onCross}>
+                  <i style={{color:"black",padding:"2px",float:"right"}} className="fa fa-remove"></i>
+              </button>
                  <button className="btn">
                     <i className="fa fa-plus"></i>
                 <span>New conversation</span>

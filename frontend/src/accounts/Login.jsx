@@ -9,6 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
+import Footer from "../base/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
+  
   const { setAuthenticated } = useContext(UserAuth);
   const history = useHistory();
 
@@ -90,6 +92,7 @@ export default function Login(props) {
   const classes = useStyles();
 
   return (
+    <>
     <div className="login_outer shadow-lg   rounded">
       {/* message error */}
       <Alert style={{ textAlign: "center" }} variant="danger">
@@ -145,6 +148,9 @@ export default function Login(props) {
           </Col>
         </Row>
       </form>
+     
     </div>
+     <Footer/>
+     </>
   );
 }

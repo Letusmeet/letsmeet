@@ -8,6 +8,10 @@ import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
+import AuthNav from "../base/AuthNav";
+import UnAuthNav from "../base/UnAuthNav";
+import UserAuth from "../accounts/UserAuth";
+import Footer from "../base/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const history = useHistory();
-
+  const [authenticated, setAuthenticated] = React.useState(true);
   // term and condition
   const [checked, setChecked] = React.useState(true);
   const handleChange = (event) => setChecked(event.target.checked);
@@ -110,6 +114,9 @@ export default function Login(props) {
   };
   const classes = useStyles();
   return (
+    <>
+     <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
+        {authenticated ? <AuthNav /> : <UnAuthNav />}
     <div className="signup_outer shadow-lg   rounded">
       <Alert style={{ textAlign: "center" }} variant="danger">
         {logMsg}
@@ -189,5 +196,8 @@ export default function Login(props) {
         </Row>
       </form>
     </div>
+    <Footer/>
+    </UserAuth.Provider>
+    </>
   );
 }

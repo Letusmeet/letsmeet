@@ -4,9 +4,18 @@
   }
   @media only screen and (max-width:550px){
   .main__chatlist{
-    display: none !important;
+    position: absolute;
+    left: 20px !important;
+    z-index: 10;
+    display: none;
+    width: 100%;
+    transition-duration: 0.5s;
+  }
+  .cross{
+    float: right !important;
   }
 }
+
   .chatlist__heading {
     display: flex;
     justify-content: space-between;
@@ -55,8 +64,15 @@
     .main__chatlist{
       padding: 0;
     }
+    .cross{
+      display: none;
+    }
   }
-  
+  @media only screen and (min-width:1031px){
+    .cross{
+      display: none;
+    }
+  }
   .chatlist__item {
     display: flex;
     border-bottom: 1px solid #ebe7fb;

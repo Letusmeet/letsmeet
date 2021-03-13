@@ -14,15 +14,14 @@ function App() {
   const [authenticated, setAuthenticated] = React.useState(true);
   return (
     <>
-      <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
-        {authenticated ? <AuthNav /> : <UnAuthNav />}
+      
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/chat" component={Chat}/>
         </Switch>
-        <Footer />
-      </UserAuth.Provider>
+      
+     
     </>
   );
 }

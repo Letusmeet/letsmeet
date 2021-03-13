@@ -4,6 +4,7 @@ import React, { Component, useState, createRef, useEffect } from "react";
 import "./ChatContent.css";
 import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
+import ChatList from "../ChatList/ChatList";
 
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
@@ -65,6 +66,7 @@ export default class ChatContent extends Component {
       chat: this.chatItms,
       msg: "",
     };
+    this.onADD=this.onADD.bind(this);
   }
 
   scrollToBottom = () => {
@@ -110,7 +112,15 @@ export default class ChatContent extends Component {
     })
     
   }
-  
+  onADD(){
+    document.querySelector(".main__chatlist").style.display="block"
+    document.querySelector(".main__chatcontent").style.opacity="0"
+    return(
+      console.log("ghavshb")
+      
+     
+    )
+  }
   render() {
     return (
       <div className="main__chatcontent">
@@ -127,8 +137,8 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg">
-                <i className="fa fa-cog"></i>
+              <button className="btn-nobg" onClick={this.onADD}>
+                  <i style={{color:"black",padding:"2px"}} className="fa fa-plus"></i>
               </button>
             </div>
           </div>
