@@ -7,7 +7,9 @@ import { Row, Col, Alert } from "react-bootstrap";
 import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import UserAuth from "./UserAuth";
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import UserAuth from "../accounts/UserAuth";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
