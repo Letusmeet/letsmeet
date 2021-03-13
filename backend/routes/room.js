@@ -40,13 +40,14 @@ router.post('/createoffice', middlewareadmin, async (req, res) => {
 
 //to create rooms
 router.post('/createroom', middlewareadmin, (req, res) => {
-    const { roomname } = req.body
+    const { roomname, description } = req.body
     if (!roomname) {
         return res.json("please give the office name")
     }
     const room = new Room({
         name: officename,
-        admin: req.user._id
+        admin: req.user._id,
+        description
     })
     room.save().then(() => {
         return res.json('virtual Room created succesfully')
