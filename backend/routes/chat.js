@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
-
+const middleware= require('../middleware/user')
 const Message = require("../models/Message");
 const Conversation = require("../models/Conversation");
 
@@ -14,13 +14,12 @@ Todo: jwtCheck for all routes, Socket connection (Refer this repo: https://githu
 /*
 Request body example: 
 {
-    "from":"604b356433ba894e0a52ca21",
     "to":"604b37b19cde5d50c3e58c63",
     "body":"How are you"
 }
 }*/
-router.post("/chat", (req, res) => {
-  let from = mongoose.Types.ObjectId(req.body.from);
+router.post("/chat", middleware, (req, res) => {
+  let from = mongoose.Types.ObjectId(req.user._id);
   let to = mongoose.Types.ObjectId(req.body.to);
 
   Conversation.findOneAndUpdate(
@@ -30,7 +29,7 @@ router.post("/chat", (req, res) => {
       },
     },
     {
-      recipients: [req.body.from, req.body.to],
+      recipients: [req.user._id, req.body.to],
       lastMessage: req.body.body,
       date: Date.now(),
     },
@@ -45,7 +44,7 @@ router.post("/chat", (req, res) => {
         let message = new Message({
           conversation: conversation._id,
           to: req.body.to,
-          from: req.body.from,
+          from: req.user._id,
           body: req.body.body,
         });
 
@@ -74,9 +73,9 @@ router.post("/chat", (req, res) => {
 });
 
 //to fetch all the conversations the person had
-router.get("/conversations", async (req, res) => {
+router.get("/conversations",middleware, async (req, res) => {
   try {
-    let userId = "604b356433ba894e0a52ca21"; //should add logged in user id
+    let userId = req.user._id; //should add logged in user id
     let result = await Conversation.find({ recipients: userId });
     res.status(200).json(result);
   } catch (e) {
@@ -87,7 +86,7 @@ router.get("/conversations", async (req, res) => {
 
 //to get all messages of a particular conversation
 //param id should be id of the conversation in db
-router.get("/messages/:id", async (req, res) => {
+router.get("/messages/:id",middleware, async (req, res) => {
   try {
     let conversationId = req.params.id;
     const messages = await Message.find({ conversation: conversationId });
@@ -106,9 +105,10 @@ router.get("/messages/:id", async (req, res) => {
     second: 604b75952cf2954a247001e1
   }
 */
-router.post("/new", async (req, res) => {
+router.post("/new",middleware, async (req, res) => {
   try{
-    const {first, second} = req.body;
+    const first = req.user._id;
+    const second = req.body;
     if(first === second){
       res.status(409).json({message:"Invalid body, each id should be unique"});
     }
