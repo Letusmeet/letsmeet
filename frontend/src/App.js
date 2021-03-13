@@ -8,6 +8,7 @@ import UserAuth from "./accounts/UserAuth";
 import React from "react";
 import AuthNav from "./base/AuthNav";
 import UnAuthNav from "./base/UnAuthNav";
+import OfficeList from "./dashboard/OfficeList";
 
 function App() {
   const [authenticated, setAuthenticated] = React.useState(true);
@@ -19,7 +20,11 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
         </Switch>
-        <Footer />
+        {() => {
+          if (!authenticated) {
+            return <Footer />;
+          }
+        }}
       </UserAuth.Provider>
     </>
   );
