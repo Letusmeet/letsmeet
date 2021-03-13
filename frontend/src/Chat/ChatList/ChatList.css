@@ -2,11 +2,7 @@
   border-right: 1px solid #ebe7fb;
   padding: 0 40px 0 0px;
 }
-@media only screen and (max-width: 550px) {
-  .main__chatlist {
-    display: none !important;
-  }
-}
+
 .chatlist__heading {
   display: flex;
   justify-content: space-between;
@@ -55,8 +51,15 @@
   .main__chatlist {
     padding: 0;
   }
+  .cross {
+    display: none;
+  }
 }
-
+@media only screen and (min-width: 1031px) {
+  .cross {
+    display: none;
+  }
+}
 .chatlist__item {
   display: flex;
   border-bottom: 1px solid #ebe7fb;

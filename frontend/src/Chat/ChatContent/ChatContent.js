@@ -108,7 +108,11 @@ export default class ChatContent extends Component {
       }
     });
   };
-
+  onADD() {
+    document.querySelector(".main__chatlist").style.display = "block";
+    document.querySelector(".main__chatcontent").style.opacity = "0";
+    return console.log("ghavshb");
+  }
   render() {
     return (
       <div className="main__chatcontent">
@@ -125,8 +129,11 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg">
-                <i className="fa fa-cog"></i>
+              <button className="btn-nobg" onClick={this.onADD}>
+                <i
+                  style={{ color: "black", padding: "2px" }}
+                  className="fa fa-plus"
+                ></i>
               </button>
             </div>
           </div>

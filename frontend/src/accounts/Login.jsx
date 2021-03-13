@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
 import Footer from "../base/Footer";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {

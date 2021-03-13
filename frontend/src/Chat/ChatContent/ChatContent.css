@@ -21,8 +21,10 @@
     justify-content: space-between;
     align-items: center;
   }
-  .settings .btn-nobg {
+  .settings .btn-nobg .fa-stream{
     color: #000;
+    background-color: red;
+    cursor: pointer;
   }
   .content__body {
     max-height: calc(100vh - calc(100vh / 2));
@@ -144,6 +146,7 @@
     background-color: #3b5bfe;
     color: #fff;
   }
+  
   @media only screen and (max-width:550px){
     .main__chatcontent{
       max-width: 100%;
@@ -152,6 +155,7 @@
     .content__body{
       max-height: 75vh !important;
     }
+    
   }
   @media only screen and (max-width:1030px) and (min-width:549px){
     .main__chatcontent{
@@ -161,5 +165,13 @@
     .content__body{
       height: 85%;
       max-height: 100vh !important;
+    }
+    .settings{
+      display: none !important;
+    }
+  }
+  @media only screen and (min-width:1031px){
+    .settings{
+      display: none !important;
     }
   }

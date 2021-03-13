@@ -8,11 +8,7 @@ import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
-import AuthNav from "../base/AuthNav";
-import UnAuthNav from "../base/UnAuthNav";
-import UserAuth from "../accounts/UserAuth";
 import Footer from "../base/Footer";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -24,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const history = useHistory();
-  const [authenticated, setAuthenticated] = React.useState(true);
   // term and condition
   const [checked, setChecked] = React.useState(true);
   const handleChange = (event) => setChecked(event.target.checked);
@@ -115,89 +110,64 @@ export default function Login(props) {
   const classes = useStyles();
   return (
     <>
-      <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
-        {authenticated ? <AuthNav /> : <UnAuthNav />}
-        <div className="signup_outer shadow-lg   rounded">
-          <Alert style={{ textAlign: "center" }} variant="danger">
-            {logMsg}
-          </Alert>
-          <form
-            onSubmit={onSubmits}
-            style={{ textAlign: "center" }}
-            className={classes.root}
-            noValidate
+      <div className="signup_outer shadow-lg   rounded">
+        <Alert style={{ textAlign: "center" }} variant="danger">
+          {logMsg}
+        </Alert>
+        <form
+          onSubmit={onSubmits}
+          style={{ textAlign: "center" }}
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            required={true}
+            label="username"
             autoComplete="off"
-          >
-            <TextField
-              required={true}
-              label="username"
-              autoComplete="off"
-              value={name.username}
-              onChange={inputEvent}
-              name="username"
+            value={name.username}
+            onChange={inputEvent}
+            name="username"
+          />
+          <TextField
+            required={true}
+            label="Email"
+            autoComplete="off"
+            value={name.email}
+            onChange={inputEvent}
+            name="email"
+          />
+          <TextField
+            required={true}
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={name.password1}
+            onChange={inputEvent}
+            name="password1"
+          />
+          <TextField
+            required={true}
+            label="confirm Password"
+            type="password"
+            autoComplete="current-password"
+            value={name.password2}
+            onChange={inputEvent}
+            name="password2"
+          />
+          <div>
+            <Checkbox
+              checked={name.checked}
+              onChange={handleChange}
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+              name="checkbox"
             />
-            <TextField
-              required={true}
-              label="Email"
-              autoComplete="off"
-              value={name.email}
-              onChange={inputEvent}
-              name="email"
-            />
-            <TextField
-              required={true}
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              value={name.password1}
-              onChange={inputEvent}
-              name="password1"
-            />
-            <TextField
-              required={true}
-              label="confirm Password"
-              type="password"
-              autoComplete="current-password"
-              value={name.password2}
-              onChange={inputEvent}
-              name="password2"
-            />
-            <div>
-              <Checkbox
-                checked={name.checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ "aria-label": "secondary checkbox" }}
-                name="checkbox"
-              />
-              <small>I accept term and condition</small>
-            </div>
-
-            <Row
-              style={{
-                width: "90%",
-              }}
-            >
-              <Col>
-                <Button type="submit" variant="contained" color="primary">
-                  Login
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={disable}
-                >
-                  Signup
-                </Button>
-              </Col>
-            </Row>
-          </form>
-        </div>
-        <Footer />
-      </UserAuth.Provider>
+            <small>I accept term and condition</small>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 }

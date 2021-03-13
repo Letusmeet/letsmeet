@@ -40,7 +40,7 @@ function AuthNav() {
 
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: "#2e3847" }} position="absolute">
+      <AppBar style={{ backgroundColor: "#2e3847" }} position="static">
         <Toolbar>
           <IconButton
             edge="start"
