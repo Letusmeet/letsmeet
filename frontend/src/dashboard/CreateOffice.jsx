@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { Row, Col, Alert } from "react-bootstrap";
-import "./Login.css";
+import "../accounts/Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -20,44 +20,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login(props) {
-  const { setAuthenticated } = useContext(UserAuth);
   const history = useHistory();
 
   //submit button toggle
   const [disable, setdisable] = useState(true);
 
-  //user error msg
-  const [logMsg, setLogMsg] = useState();
-
   //getting onchange usestate
-  const [name, setName] = useState({
-    email: "",
-    password: "",
-  });
+  const [officeName, setOfficeName] = useState("");
 
   //onchange event
   const inputEvent = (e) => {
-    const changeName = e.target.name;
     const changeValue = e.target.value;
 
     // update input value
-    setName((previous) => {
-      if (changeName === "email") {
-        return {
-          email: changeValue,
-          password: previous.password,
-        };
-      } else {
-        return {
-          email: previous.email,
-          password: changeValue,
-        };
-      }
-    });
+    setOfficeName(changeValue);
     //submit button state check on or off
-    name.email === "" || name.password === ""
-      ? setdisable(true)
-      : setdisable(false);
+    officeName === "" ? setdisable(true) : setdisable(false);
   };
 
   // on form submit
@@ -67,28 +45,25 @@ export default function Login(props) {
     console.log("submitted");
 
     axios
-      .post("/signin", {
-        email: name.email,
-        password: name.password,
-      })
+      .post(
+        "/createoffice",
+        {
+          officename: officeName,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
+          },
+        }
+      )
       .then(async (response) => {
+        console.log(response);
         if (response.status == 200) {
-          setAuthenticated(true);
-          window.localStorage.setItem("csrfToken", response.data.token);
-          window.localStorage.setItem("isAuth", true);
-          window.localStorage.setItem("UserId", response.data.user._id);
-
-          if (response.data.user.office == undefined) {
-            history.push("/createoffice");
-          } else {
-            window.localStorage.setItem("officeID", response.office);
-            history.push("/home");
-          }
+          history.push("/home");
         }
       })
       .catch((err) => {
         console.error("err :" + err);
-        setLogMsg("Opps! Please try again");
       });
   };
 
@@ -97,11 +72,6 @@ export default function Login(props) {
   return (
     <>
       <div className="login_outer shadow-lg   rounded">
-        {/* message error */}
-        <Alert style={{ textAlign: "center" }} variant="danger">
-          {logMsg}
-        </Alert>
-
         <form
           onSubmit={onSubmits}
           style={{ textAlign: "center" }}
@@ -112,32 +82,17 @@ export default function Login(props) {
           <TextField
             required={true}
             id="standard-basic"
-            label="Email"
+            label="Office Name"
             autoComplete="off"
-            value={name.email}
+            value={officeName}
             onChange={inputEvent}
-            name="email"
-          />
-          <TextField
-            required={true}
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={name.password}
-            onChange={inputEvent}
-            name="password"
+            name="office_name"
           />
           <Row
             style={{
               width: "90%",
             }}
           >
-            <Col>
-              <Button variant="contained" color="primary">
-                <small style={{ fontSize: "0.6rem" }}>forget password</small>
-              </Button>
-            </Col>
             <Col>
               <Button
                 style={{ padding: "11px 40px 11px 40px" }}
@@ -146,7 +101,7 @@ export default function Login(props) {
                 color="primary"
                 disabled={disable}
               >
-                Login
+                Create
               </Button>
             </Col>
           </Row>
