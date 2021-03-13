@@ -16,6 +16,7 @@ import UserAuth from "../accounts/UserAuth";
 import { useHistory } from "react-router-dom";
 
 import { NavLink } from "react-router-dom";
+
 export default function TemporaryDrawer() {
   const { setAuthenticated } = React.useContext(UserAuth);
   const history = useHistory();
@@ -76,7 +77,7 @@ export default function TemporaryDrawer() {
 
             <NavLink
               className="nav-link"
-              to="/dashboard"
+              to="/setting"
               activeClassName="active_nav"
             >
               <ListItem button>
@@ -89,7 +90,7 @@ export default function TemporaryDrawer() {
 
             <NavLink
               className="nav-link"
-              to="/dashboard"
+              to="/help"
               activeClassName="active_nav"
             >
               <ListItem button>

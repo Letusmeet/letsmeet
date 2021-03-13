@@ -165,6 +165,27 @@ export default function Login(props) {
             />
             <small>I accept term and condition</small>
           </div>
+          <Row
+            style={{
+              width: "90%",
+            }}
+          >
+            <Col>
+              <Button type="submit" variant="contained" color="primary">
+                Login
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={disable}
+              >
+                Signup
+              </Button>
+            </Col>
+          </Row>
         </form>
       </div>
       <Footer />

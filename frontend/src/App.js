@@ -11,13 +11,13 @@ import UnAuthNav from "./base/UnAuthNav";
 import Chat from "./Chat/Chat";
 
 import OfficeList from "./dashboard/OfficeList";
-
+import Navbar from "./base/Navbar";
 function App() {
-  const [authenticated, setAuthenticated] = React.useState(true);
+  const [authenticated, setAuthenticated] = React.useState(false);
   return (
     <>
-      <UserAuth.Provider>
-        {authenticated ? AuthNav : UnAuthNav}
+      <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
+        {/* <Navbar authenticated={authenticated} /> */}
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
