@@ -107,29 +107,42 @@ router.get("/messages/:id", async (req, res) => {
   }
 */
 router.post("/new", async (req, res) => {
-  try{
-    const {first, second} = req.body;
-    if(first === second){
-      res.status(409).json({message:"Invalid body, each id should be unique"});
+  try {
+    const { first, second } = req.body;
+    if (first === second) {
+      res.status(409).json({ message: "Invalid body, each id should be unique" });
     }
-    else{
-      const exist = await Conversation.find({ $and: [ { recipients: first }, { recipients: second } ] })
-      if(exist.length > 0){
-        res.status(409).json({ message :"Conversation already exists"});
+    else {
+      const exist = await Conversation.find({ $and: [{ recipients: first }, { recipients: second }] })
+      if (exist.length > 0) {
+        res.status(409).json({ message: "Conversation already exists" });
       }
-      else{
-        let recipients=[];
+      else {
+        let recipients = [];
         recipients.push(first);
         recipients.push(second);
-        const newConversation= await Conversation.create({recipients: recipients});
+        const newConversation = await Conversation.create({ recipients: recipients });
         console.log(newConversation)
-        res.status(200).json({message:"Conversation created successfully"});
+        res.status(200).json({ message: "Conversation created successfully" });
       }
     }
-  }catch (e) {
+  } catch (e) {
     console.log(e);
-    res.status(500).json({message :"Server error"});
+    res.status(500).json({ message: "Server error" });
   }
 })
+
+
+router.post('/addusertochat/:chatid/:id', middlewareadmin, (req, res) => {
+  Conversation.findByIdAndUpdate(req.params.chatid, {
+    $push: { recipients: req.params.id }
+  }, { new: true }).then(() => {
+    res.status(200).json({ message: "Conversation created successfully" });
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
+  })
+})
+
 
 module.exports = router;

@@ -21,6 +21,10 @@ mongoose.connection.on("error", (err) => {
 require("./models/user");
 require("./models/board");
 require("./models/card");
+require("./models/Conversation");
+require("./models/Message");
+require("./models/office");
+require("./models/room");
 
 const server = app.listen(port, () => {
   console.log(`server on port ${port}`);
@@ -37,3 +41,5 @@ app.use(express.json());
 app.use(require("./routes/auth"));
 app.use(require("./routes/board"));
 app.use(require("./routes/chat"));
+app.use(require("./routes/room"));
+app.use(require("./routes/users"));
