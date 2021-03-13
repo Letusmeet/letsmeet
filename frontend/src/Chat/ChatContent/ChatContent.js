@@ -7,57 +7,7 @@ import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
-  chatItms = [
-    {
-      key: 1,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "Hi Tim, How are you?",
-    },
-    {
-      key: 2,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I am fine.",
-    },
-    {
-      key: 3,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "What about you?",
-    },
-    {
-      key: 4,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "Awesome these days.",
-    },
-    {
-      key: 5,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "Finally. What's the plan?",
-    },
-    {
-      key: 6,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "what plan mate?",
-    },
-    {
-      key: 7,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I'm taliking about the tutorial",
-    },
-  ];
+  chatItms = [];
 
   constructor(props) {
     super(props);
@@ -75,6 +25,7 @@ export default class ChatContent extends Component {
     this.messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
   updateUser(){
+    console.log(this.state)
     fetch("/messages/"+this.props.currentConvo,
     {
       method: 'get',
@@ -125,7 +76,7 @@ export default class ChatContent extends Component {
             type: "",
             msg: this.state.msg,
             image:
-              "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
+              userimage,
           });
           this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
@@ -134,7 +85,29 @@ export default class ChatContent extends Component {
       }
     });
     this.scrollToBottom();
-    this.updateUser();
+    
+    fetch("/conversations/"+localStorage.getItem('id'),
+    {
+      method: 'get',
+      headers: new Headers({
+        'Authorization': `Bearer ${this.state.userToken}`, 
+        'Content-Type': 'application/json'
+      })
+    }).then(response => response.json())
+    .then( result => {
+      var myid=result[result.length-1]._id;
+      console.log(result);
+      var name=result[result.length-1].recipients.filter(item=>{
+        return item._id!==localStorage.getItem('id');
+      });
+      console.log(name);
+      name=name[0].name;
+      this.props.handler(myid,name);
+      console.log(myid);
+        }).catch(err => {
+            console.log(err)
+        })
+        this.updateUser();
   }
   componentDidUpdate(prevProps) {
     if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
@@ -183,8 +156,11 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg">
-                <i className="fa fa-cog"></i>
+            <button className="btn-nobg" onClick={this.onADD}>
+                <i
+                  style={{ color: "black", padding: "2px" }}
+                  className="fa fa-plus"
+                ></i>
               </button>
             </div>
           </div>
