@@ -1,7 +1,8 @@
+  
 import React, { Component, useState, createRef, useEffect } from "react";
 
 import "./ChatContent.css";
-import Avatar from "./Avatar";
+import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
 export default class ChatContent extends Component {
@@ -144,8 +145,8 @@ export default class ChatContent extends Component {
   onStateChange = (e) => {
     this.setState({ msg: e.target.value });
   };
-  onenter = (e) => {
-    document.getElementById("sendMsgBtn").addEventListener("click", (e) => {
+  onenter=(e) =>{
+    document.getElementById("sendMsgBtn").addEventListener("click",(e)=>{
       if (this.state.msg != "") {
         this.chatItms.push({
           key: 1,
@@ -165,6 +166,7 @@ export default class ChatContent extends Component {
     document.querySelector(".main__chatcontent").style.display = "none";
     return console.log("ghavshb");
   }
+  
   render() {
     return (
       <div className="main__chatcontent">
@@ -181,11 +183,8 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-              <button className="btn-nobg" onClick={this.onADD}>
-                <i
-                  style={{ color: "black", padding: "2px" }}
-                  className="fa fa-plus"
-                ></i>
+              <button className="btn-nobg">
+                <i className="fa fa-cog"></i>
               </button>
             </div>
           </div>
@@ -217,11 +216,7 @@ export default class ChatContent extends Component {
               onChange={this.onStateChange}
               value={this.state.msg}
             />
-            <button
-              className="btnSendMsg"
-              id="sendMsgBtn"
-              onClick={this.onenter}
-            >
+            <button className="btnSendMsg" id="sendMsgBtn" onClick={this.onenter}>
               <i className="fa fa-paper-plane"></i>
             </button>
           </div>
