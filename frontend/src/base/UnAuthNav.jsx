@@ -37,7 +37,7 @@ function UnAuthNav() {
   };
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: "#2e3847" }}>
+      <AppBar position="static" style={{ backgroundColor: "#2e3847" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             OnWork

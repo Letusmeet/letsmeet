@@ -74,3 +74,11 @@ router.post('/profile',middleware,(req,res)=>{
     })  
 })
 module.exports = router;
+router.post('/fetchofficemembers', middleware, (req, res) => {
+    Office.findById(req.user.office).then(result => {
+        res.json(result.membersoffice)
+    })
+})
+
+module.exports = router;
+
