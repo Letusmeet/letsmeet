@@ -48,11 +48,19 @@ function RoomList() {
 
   return (
     <>
-      <div style={{ marginLeft: "65%" }}>
-        <Button>
-          <AddIcon style={{ color: "#de3e4d", fontWeight: "bold" }} />
-        </Button>
-      </div>
+      <NavLink
+        to="/createroom"
+        exact
+        activeClassName="active_nav"
+        className="nav-link"
+      >
+        <div style={{ marginLeft: "65%" }}>
+          <Button>
+            <AddIcon style={{ color: "#de3e4d", fontWeight: "bold" }} />
+          </Button>
+        </div>
+      </NavLink>
+
       {/* <Row>
           {officeListArray.map((office) => (
             <Col key={office.id} xs="12" lg="4">

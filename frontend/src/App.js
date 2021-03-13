@@ -12,6 +12,7 @@ import Chat from "./Chat/Chat";
 import Home from "./dashboard/Home";
 import Navbar from "./base/Navbar";
 import BoardList from "./dashboard/BoardList";
+import CreateRoom from "./dashboard/CreateRoom";
 function App() {
   const [authenticated, setAuthenticated] = React.useState(false);
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/chat" component={Chat} />
           <Route exact path="/boardlist" component={BoardList} />
+          <Route exact path="/createroom" component={CreateRoom} />
         </Switch>
         {() => {
           if (!authenticated) {
