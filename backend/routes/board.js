@@ -4,25 +4,36 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const Board = mongoose.model("Board");
 const Card = mongoose.model("Card");
+const Room = mongoose.model("Room");
 const middlewareadmin = require("../middleware/admin");
 const middleware = require("../middleware/user");
 const middlewaremanager = require("../middleware/manager");
 
 //to create a taskboard
-router.post("/createboard", middlewaremanager, (req, res) => {
+router.post("/createboard/:roomid", middlewaremanager, (req, res) => {
   const { title, manager, description } = req.body; //requires board title, the userid which is creating as manager
   var myboard = new Board({
     //and some description about board.
     boardtitle: title,
     manager,
     description,
+    room: req.params.roomid
   });
-  myboard
-    .save()
-    .then((board) => {
-      res.json({ board, message: "Board created successfully!" });
+  myboard.save()
+    .then(board => {
+      console.log(board._id);
+      Room.findByIdAndUpdate(req.params.roomid, {
+        $push: { boards: board._id }
+      }, { new: true }).then(() => {
+        res.json({ board, message: "Board created successfully!" });
+      }).catch(err => {
+        console.log(err);
+        res.json({ err, message: "Some error occured, please try again!" });
+      })
+
     })
     .catch((err) => {
+      console.log(err);
       res.json({ err, message: "Some error occured, please try again!" });
     });
 });
@@ -40,8 +51,8 @@ router.post("/createcard", middlewaremanager, (req, res) => {
   mycard
     .save()
     .then((card) => {
-      Board.findByIdAndUpdate(board, { $push: { cards: mycard._id } }).then(
-        (added) => {
+      Board.findByIdAndUpdate(board, { $push: { cards: card._id } }).then(
+        () => {
           res.json({ card, message: "Card created successfully!" });
         }
       );

@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 
 
 const BoardSchema = new mongoose.Schema({
-    
+
     boardtitle: {
         type: String,
         required: true
     },
-    cards : [{
+    cards: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Card"
     }],
@@ -15,11 +15,15 @@ const BoardSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    employees : [{
+    employees: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-    date:{
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Room"
+    },
+    date: {
         type: String,
         default: Date.now
     }
