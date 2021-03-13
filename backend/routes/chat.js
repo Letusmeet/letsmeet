@@ -76,7 +76,7 @@ router.get("/conversations/:id", middleware, async (req, res) => {
   try {
     let userId = req.params.id; //should add logged in user id
     console.log(userId);
-    let result = await Conversation.find({ recipients: userId });
+    let result = await Conversation.find({ recipients: userId }).populate("recipients",'name email');
     res.status(200).json(result);
   } catch (e) {
     console.log(e);
