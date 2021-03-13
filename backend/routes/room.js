@@ -10,7 +10,7 @@ const middlewareadmin = require('../middleware/admin')
 const middleware = require('../middleware/user')
 
 //to create office
-router.post('/createoffice', middlewareadmin, (req, res) => {
+router.post('/createoffice', middlewareadmin, async (req, res) => {
     const { officename } = req.body
     if (!officename) {
         return res.json("please give the office name")
