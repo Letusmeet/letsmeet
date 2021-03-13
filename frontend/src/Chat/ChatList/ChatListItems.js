@@ -10,6 +10,7 @@ export default class ChatListItems extends Component {
     console.log(this.props.handler);
     this.props.handler(this.props.id,this.props.name);
     console.log(this.props);
+    
     /*
     for (
       let index = 0;

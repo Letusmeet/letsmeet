@@ -65,6 +65,15 @@ router.post('/fetchroom', middleware, (req, res) => {
     res.json(req.user.rooms);
 })
 
+//to fetch userprofile
+router.post('/profile',middleware,(req,res)=>{
+    User.findById(req.user._id).then(me => {
+        res.status(200).json(me);
+    }).catch(err => {
+        res.status(500).json("Some error occured, please try again!");
+    })  
+})
+module.exports = router;
 router.post('/fetchofficemembers', middleware, (req, res) => {
     Office.findById(req.user.office).then(result => {
         res.json(result.membersoffice)

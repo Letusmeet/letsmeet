@@ -57,10 +57,6 @@ export default class ChatList extends Component {
   render() {
     return (
       <div className="main__chatlist">
-        <button className="btn">
-          <i className="fa fa-plus"></i>
-          <span>New conversation</span>
-        </button>
         <button className="btn-nobg cross" style={{float:"right"}} onClick={this.onCross}>
                 <i
                   style={{ color: "black", padding: "2px",float:"right" }}

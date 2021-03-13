@@ -20,12 +20,12 @@ router.post('/createoffice', middleware, (req, res) => {
         var office = new Office({
             name: officename,
             admin: req.user._id,
-
+            membersoffice: { memberid: req.user._id }
         })
         office.save().then(result => {
             console.log(result._id);
             User.findByIdAndUpdate(req.user._id, {
-                $set: { admin: false },
+                $set: { admin: true },
                 $set: { office: result._id }
             }, { new: true }).then(() => {
                 res.json("office id saved in user")
@@ -42,20 +42,26 @@ router.post('/createoffice', middleware, (req, res) => {
 
 
 //to create rooms
-router.post("/createroom", middlewareadmin, (req, res) => {
+router.post("/createroom/:officeid", middlewareadmin, (req, res) => {
     const { roomname, description } = req.body;
     if (!roomname) {
-        return res.json("please give the office name");
+        return res.json("please give the room name");
     }
     const room = new Room({
-        name: officename,
+        name: roomname,
         admin: req.user._id,
         description,
     });
     room
         .save()
-        .then(() => {
-            return res.json("virtual Room created succesfully");
+        .then(result => {
+            Office.findByIdAndUpdate(req.params.officeid, {
+                $push: { rooms: result._id }
+            }, { new: true }).then(() => {
+                res.json("Room created succesfully")
+            }).catch(err => {
+                console.log(err);
+            })
         })
         .catch((err) => {
             console.log(err);

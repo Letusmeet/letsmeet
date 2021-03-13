@@ -1,19 +1,42 @@
 import React, { Component } from "react";
 import "./UserProfile.css";
+import userimage from '../ChatList/user.jpeg'
 
 export default class UserProfile extends Component {
   toggleInfo = (e) => {
     e.target.parentNode.classList.toggle("open");
   };
+  constructor(props){
+    super(props);
+    this.state={
+      user:{}
+    }
+  }
+  componentDidMount(){
+    fetch("/profile",
+    {
+      method: 'post',
+      headers: new Headers({
+        'Authorization': 'Bearer '+ localStorage.getItem('jwt'), 
+        'Content-Type': 'application/json'
+      })
+    }).then(response => response.json())
+    .then( result => {
+      console.log(result);
+      this.setState({user:result})
+        }).catch(err => {
+            console.log(err)
+        })
+  }
   render() {
     return (
       <div className="main__userprofile">
         <div className="profile__card user__profile__image">
           <div className="profile__image">
-            <img src="https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg" />
+            <img src={userimage}/>
           </div>
-          <h4>Fernando Faucho</h4>
-          <p>CEO & Founder at Highly Inc</p>
+          <h4>{this.state.user.name}</h4>
+          <p>{this.state.user.email}</p>
         </div>
         <div className="profile__card">
           <div className="card__header" onClick={this.toggleInfo}>
