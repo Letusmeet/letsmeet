@@ -128,6 +128,7 @@ router.get("/fetchcard/:id", middleware, (req, res) => {
   Board.findById(req.params.id)
     .populate("cards")
     .then((result) => {
+      console.log(result);
       res.json(result.cards);
     })
     .catch((err) => {
