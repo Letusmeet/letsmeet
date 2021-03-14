@@ -8,7 +8,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
 import DashboardNav from "../DashboardNav";
-
+import RoomUserList from "../room/RoomUserList";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -74,30 +74,36 @@ function BoardList(props) {
             </Button>
           </div>
         </NavLink>
-
-        <Row>
-          {boardListArray.map((boards) => (
-            <Col key={boards.id} xs="12" lg="4">
-              <div className="shadow  mb-2 bg-body rounded">
-                <NavLink
-                  to={{
-                    pathname: "/cardlist",
-                    aboutProps: {
-                      boardId: boards._id,
-                      title: boards.title,
-                    },
-                  }}
-                  exact
-                  activeClassName="active_nav"
-                  className="nav-link"
-                >
-                  <Board board={boards} />
-                </NavLink>
-              </div>
-            </Col>
-          ))}
-        </Row>
       </Container>
+      <Row>
+        <Col xs="12" lg="8">
+          <Row>
+            {boardListArray.map((boards) => (
+              <Col key={boards.id} xs="12" lg="3">
+                <div className="shadow  mb-2 bg-body rounded">
+                  <NavLink
+                    to={{
+                      pathname: "/cardlist",
+                      aboutProps: {
+                        boardId: boards._id,
+                        title: boards.title,
+                      },
+                    }}
+                    exact
+                    activeClassName="active_nav"
+                    className="nav-link"
+                  >
+                    <Board board={boards} />
+                  </NavLink>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+        <Col xs="12" lg="4">
+          <RoomUserList />
+        </Col>
+      </Row>
     </>
   );
 }

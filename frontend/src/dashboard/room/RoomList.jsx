@@ -9,6 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { NavLink, Switch, Route } from "react-router-dom";
 import DashboardNav from "../DashboardNav";
 import Room from "./Room";
+import RoomUserList from "./RoomUserList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function RoomList() {
   const [roomListArray, setRoomListArray] = React.useState([]);
-  const classes = useStyles()
+  const classes = useStyles();
 
   //get room list
   React.useEffect(() => {
@@ -29,8 +30,8 @@ function RoomList() {
     axios
       .get(`/fetchroom/${window.localStorage.getItem("officeID")}`, {
         headers: {
-          Authorization:"Bearer " + window.localStorage.getItem("csrfToken"),
-          ContentType:"application/json"
+          Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
+          ContentType: "application/json",
         },
       })
       .then((response) => {
@@ -63,7 +64,6 @@ function RoomList() {
           </Button>
         </div>
       </NavLink>
-
       {roomListArray.map((room) => (
         <Button key={room._id}>
           <NavLink

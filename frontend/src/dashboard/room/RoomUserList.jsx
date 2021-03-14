@@ -10,8 +10,6 @@ import Avatar from "@material-ui/core/Avatar";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,34 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function CheckboxListSecondary() {
+export default function RoomUserList() {
   const classes = useStyles();
-  const history = useHistory();
-
-  const [userList, setUserList] = React.useState([]);
-
-  React.useEffect(() => {
-    axios
-      .post(
-        "/fetchofficemembers",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
-          },
-        }
-      )
-      .then(async (response) => {
-        if (response.status == 200) {
-          console.log(response);
-          setUserList(response.data);
-          history.push("/home");
-        }
-      })
-      .catch((err) => {
-        console.error("err :" + err);
-      });
-  }, []);
+  const [checked, setChecked] = React.useState([1]);
 
   return (
     <>
@@ -61,7 +34,7 @@ export default function CheckboxListSecondary() {
       </div>
       <List dense className={classes.root}>
         <ListItem button style={{ textAlign: "center" }}>
-          <h5>Office Member</h5>
+          <h5>Room Member</h5>
         </ListItem>
         {[0, 1, 2, 3].map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
