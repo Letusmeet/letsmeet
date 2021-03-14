@@ -25,59 +25,6 @@ function CardList(props) {
   }
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
-  let items = [
-    {
-      title: "Title",
-      description:
-        "HI, this is the description of the dummy content, we will integrate it soon!",
-      comments: [
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-      ],
-    },
-    {
-      title: "Title",
-      description:
-        "HI, this is the description of the dummy content, we will integrate it soon!",
-      comments: [
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-      ],
-    },
-    {
-      title: "Title",
-      description:
-        "HI, this is the description of the dummy content, we will integrate it soon!",
-      comments: [
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-        {
-          by: "Nishi",
-          body: "This is the dummy comment!",
-          date: "2 March",
-        },
-      ],
-    },
-  ];
 
   //get post list
   React.useEffect(() => {
@@ -106,7 +53,7 @@ function CardList(props) {
 
   return (
     <>
-      <DashboardNav />
+      <DashboardNav no={3} boradId={boardId} />
       <Container>
         <NavLink
           to={{
