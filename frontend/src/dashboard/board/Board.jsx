@@ -17,10 +17,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Board() {
+export default function Board(props) {
   const classes = useStyles();
-  // console.log(props.office);
-
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -31,7 +29,7 @@ export default function Board() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Title
+            {props.board.boardtitle}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000

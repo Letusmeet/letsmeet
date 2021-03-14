@@ -32,7 +32,7 @@ router.post("/createoffice", middleware, (req, res) => {
         { new: true }
       )
         .then(() => {
-          res.json("office id saved in user");
+          res.json(result._id);
         })
         .catch((err) => {
           console.log(err);
