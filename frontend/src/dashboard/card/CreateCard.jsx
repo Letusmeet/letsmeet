@@ -15,13 +15,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateBoard(props) {
+export default function CreateCard(props) {
   const history = useHistory();
 
   //submit button toggle
   const [disable, setdisable] = useState(true);
 
   //getting onchange usestate
+  //   title, board, description;
   const [name, setName] = useState({
     title: "",
     description: "",
@@ -58,13 +59,13 @@ export default function CreateBoard(props) {
   const onSubmits = async (e) => {
     e.preventDefault();
     console.log("submitted");
-    console.log("props" + props.location.aboutProps.roomId);
-    const roomId = await props.location.aboutProps.roomId;
+    const boardId = await props.location.aboutProps.boardId;
     axios
       .post(
-        `/createboard/${roomId}`,
+        `/createcard`,
         {
           description: name.description,
+          board: boardId,
           title: name.title,
         },
         {
@@ -76,8 +77,8 @@ export default function CreateBoard(props) {
       .then(async (response) => {
         if (response.status == 200) {
           history.push({
-            pathname: "/boardlist",
-            state: { roomId: props.location.aboutProps.roomId },
+            pathname: "/cardlist",
+            state: { boardId: props.location.aboutProps.boardId },
           });
         }
       })
@@ -98,7 +99,7 @@ export default function CreateBoard(props) {
         >
           <TextField
             required={true}
-            label="Board Title"
+            label="Card Title"
             autoComplete="off"
             value={name.title}
             onChange={inputEvent}

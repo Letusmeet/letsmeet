@@ -57,9 +57,10 @@ export default function Login(props) {
         }
       )
       .then(async (response) => {
-        console.log(response);
+        console.log(response.data);
         if (response.status == 200) {
-        window.localStorage.setItem("officeID", response.office);
+          console.log(response);
+          window.localStorage.setItem("officeID", response.data);
           history.push("/home");
         }
       })

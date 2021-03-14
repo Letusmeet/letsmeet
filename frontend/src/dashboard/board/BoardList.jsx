@@ -18,15 +18,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function BoardList(props) {
-  console.log(props);
   const [boardListArray, setBoardListArray] = React.useState([]);
   const classes = useStyles();
+  let roomId;
+  try {
+    roomId = props.location.aboutProps.roomId;
+  } catch (error) {
+    roomId = window.localStorage.getItem("roomId");
+  }
 
   //get post list
   React.useEffect(() => {
     console.log("Bearer " + window.localStorage.getItem("csrfToken"));
     axios
-      .get(`fetchboard/${props.location.aboutProps.roomId}`, {
+      .get(`fetchboard/${roomId}`, {
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
         },
@@ -34,6 +39,7 @@ function BoardList(props) {
       .then((response) => {
         if (response.status == 200) {
           const arr = response.data;
+          window.localStorage.setItem("roomId", roomId);
           setBoardListArray(arr);
         } else {
           console.log("errr", response);
@@ -55,7 +61,7 @@ function BoardList(props) {
           to={{
             pathname: "/createboard",
             aboutProps: {
-              roomId: props.location.aboutProps.roomId,
+              roomId: roomId,
             },
           }}
           exact
@@ -70,10 +76,23 @@ function BoardList(props) {
         </NavLink>
 
         <Row>
-          {boardListArray.map((office) => (
-            <Col key={office.id} xs="12" lg="4">
+          {boardListArray.map((boards) => (
+            <Col key={boards.id} xs="12" lg="4">
               <div className="shadow  mb-2 bg-body rounded">
-                <Board office={office} />
+                <NavLink
+                  to={{
+                    pathname: "/cardlist",
+                    aboutProps: {
+                      boardId: boards._id,
+                      title: boards.title,
+                    },
+                  }}
+                  exact
+                  activeClassName="active_nav"
+                  className="nav-link"
+                >
+                  <Board board={boards} />
+                </NavLink>
               </div>
             </Col>
           ))}

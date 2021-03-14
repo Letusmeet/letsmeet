@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
         const { _id } = payload
         User.findById(_id).then(userdata => {
             req.user = userdata
-            if (userdata.manager == true||userdata.admin==true) {
+            if (userdata.manager == true || userdata.admin == true) {
                 next()
             }
             else {

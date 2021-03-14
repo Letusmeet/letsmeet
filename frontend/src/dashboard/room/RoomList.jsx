@@ -20,21 +20,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function RoomList() {
   const [roomListArray, setRoomListArray] = React.useState([]);
-  const classes = useStyles();
+  const classes = useStyles()
 
   //get room list
   React.useEffect(() => {
+    setRoomListArray([]);
     console.log("Bearer " + window.localStorage.getItem("csrfToken"));
     axios
-      .get(`fetchroom/${window.localStorage.getItem("officeID")}`, {
+      .get(`/fetchroom/${window.localStorage.getItem("officeID")}`, {
         headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
+          Authorization:"Bearer " + window.localStorage.getItem("csrfToken"),
+          ContentType:"application/json"
         },
       })
       .then((response) => {
         if (response.status == 200) {
           const arr = response.data;
-          console.log(arr);
+          console.log(response.data);
           setRoomListArray(arr);
         } else {
           console.log("errr", response);
