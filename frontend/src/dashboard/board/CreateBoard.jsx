@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateRoom() {
+export default function CreateBoard(props) {
   const history = useHistory();
 
   //submit button toggle
@@ -23,7 +23,7 @@ export default function CreateRoom() {
 
   //getting onchange usestate
   const [name, setName] = useState({
-    roomName: "",
+    title: "",
     description: "",
   });
 
@@ -35,21 +35,21 @@ export default function CreateRoom() {
 
     // update input value
     setName((previous) => {
-      if (changeName === "roomName") {
+      if (changeName === "title") {
         return {
-          roomName: changeValue,
+          title: changeValue,
           description: previous.description,
         };
       } else if (changeName === "description") {
         return {
-          roomName: previous.roomName,
+          title: previous.title,
           description: changeValue,
         };
       }
     });
 
     //submit button state check on or of
-    name.roomName === "" || name.description === ""
+    name.title === "" || name.description === ""
       ? setdisable(true)
       : setdisable(false);
   };
@@ -61,10 +61,10 @@ export default function CreateRoom() {
 
     axios
       .post(
-        `/createroom/${window.localStorage.getItem("officeID")}`,
+        `/createboard/${props.location.aboutProps.roomId}`,
         {
           description: name.description,
-          roomname: name.roomName,
+          title: name.title,
         },
         {
           headers: {
@@ -74,7 +74,10 @@ export default function CreateRoom() {
       )
       .then(async (response) => {
         if (response.status == 200) {
-          history.push("/home"); //send to home
+          history.push({
+            pathname: "/boardlist",
+            state: { roomId: props.location.aboutProps.roomIds },
+          }); //send to home
         }
       })
       .catch((err) => {
@@ -94,11 +97,11 @@ export default function CreateRoom() {
         >
           <TextField
             required={true}
-            label="Room Name"
+            label="Board Title"
             autoComplete="off"
-            value={name.roomName}
+            value={name.title}
             onChange={inputEvent}
-            name="roomName"
+            name="title"
           />
           <TextField
             required={true}

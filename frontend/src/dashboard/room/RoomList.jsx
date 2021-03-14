@@ -19,32 +19,34 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function RoomList() {
-  //   const [officeListArray, setOfficeListArray] = React.useState([]);
-  //   const classes = useStyles();
+  const [roomListArray, setRoomListArray] = React.useState([]);
+  const classes = useStyles()
 
-  //   //get post list
-  //   React.useEffect(() => {
-  //     console.log("Bearer " + window.localStorage.getItem("csrfToken"));
-  //     axios
-  //       .get(`boards/${window.localStorage.getItem("id")}`, {
-  //         headers: {
-  //           Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
-  //         },
-  //       })
-  //       .then((response) => {
-  //         if (response.status == 200) {
-  //           const arr = response.data;
-  //           setOfficeListArray(arr);
-  //         } else {
-  //           console.log("errr", response);
-  //           //error message
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log("error" + err);
-  //         //invalid
-  //       });
-  //   }, []);
+  //get room list
+  React.useEffect(() => {
+    console.log("Bearer " + window.localStorage.getItem("csrfToken"));
+    axios
+      .get(`/fetchroom/${window.localStorage.getItem("officeID")}`, {
+        headers: {
+          Authorization:"Bearer " + window.localStorage.getItem("csrfToken"),
+          ContentType:"application/json"
+        },
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          const arr = response.data;
+          console.log(arr);
+          setRoomListArray(arr);
+        } else {
+          console.log("errr", response);
+          //error message
+        }
+      })
+      .catch((err) => {
+        console.log("error" + err);
+        //invalid
+      });
+  }, []);
 
   return (
     <>
@@ -61,46 +63,25 @@ function RoomList() {
         </div>
       </NavLink>
 
-      {/* <Row>
-          {officeListArray.map((office) => (
-            <Col key={office.id} xs="12" lg="4">
-              <div className="shadow  mb-2 bg-body rounded">
-                <Room />
-              </div>
-            </Col>
-          ))}
-        </Row> */}
-
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
-      <Button>
-        <NavLink
-          to="/boardlist"
-          exact
-          activeClassName="active_nav"
-          className="nav-link"
-        >
-          <Room />
-        </NavLink>
-      </Button>
+      {roomListArray.map((room) => (
+        <Button key={room._id}>
+          <NavLink
+            to={{
+              pathname: "/boardlist",
+              aboutProps: {
+                roomId: room._id,
+                roomName: room.name,
+                decription: room.decription,
+              },
+            }}
+            exact
+            activeClassName="active_nav"
+            className="nav-link"
+          >
+            <Room rooms={room} />
+          </NavLink>
+        </Button>
+      ))}
     </>
   );
 }
