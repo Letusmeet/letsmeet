@@ -97,63 +97,62 @@ export default function Login(props) {
 
   return (
     <>
-      <div className="login_outer shadow-lg   rounded">
-        {/* message error */}
-        <Alert style={{ textAlign: "center" }} variant="danger">
-          {logMsg}
-        </Alert>
+      
+      <Alert style={{ textAlign: "center" }} variant="danger">
+        {logMsg}
+      </Alert>
 
-        <form
-          onSubmit={onSubmits}
-          style={{ textAlign: "center" }}
+    <div class="log_container">
+        <div class="page"> 
+          <h1>Hello Friend!</h1>
+          <p>Suspendisse porttitor mi id magna mollis, eget hendrerit justo volutpat. Vivamus nec arcu sed mauris posuere aliquam.</p>
+          <div class="shape1" id="shape"></div>
+          <div class="shape2" id="shape"></div>
+        </div>
+        <div class="log_form"> 
+          <h2>LogIn with your Account</h2>
+          <div class="sns">
+            <div class="circle1"><img src="https://www.flaticon.com/svg/static/icons/svg/1384/1384053.svg" width="30"/></div>
+            <div class="circle1 tw"><img src="https://www.flaticon.com/svg/static/icons/svg/733/733579.svg" width="30"/></div>
+            <div class="circle1 goo"><img src="https://www.flaticon.com/svg/static/icons/svg/2875/2875404.svg" width="30"/></div>
+          </div>
+          <p>or use your email for Login</p>
+          <form  onSubmit={onSubmits}
+          
           className={classes.root}
           noValidate
+          autoComplete="off">
+
+          <input class="searchTerm" required={true}
+          id="standard-basic"
+          label="Email"
           autoComplete="off"
-        >
-          <TextField
-            required={true}
-            id="standard-basic"
-            label="Email"
-            autoComplete="off"
-            value={name.email}
-            onChange={inputEvent}
-            name="email"
-          />
-          <TextField
-            required={true}
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={name.password}
-            onChange={inputEvent}
-            name="password"
-          />
-          <Row
-            style={{
-              width: "90%",
-            }}
-          >
-            <Col>
-              <Button variant="contained" color="primary">
-                <small style={{ fontSize: "0.6rem" }}>forget password</small>
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                style={{ padding: "11px 40px 11px 40px" }}
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={disable}
-              >
-                Login
-              </Button>
-            </Col>
-          </Row>
+          value={name.email}
+          onChange={inputEvent}
+          name="email" type="text" placeholder="E-mail"/>
+
+          <input class="searchTerm" type="text" required={true}
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          value={name.password}
+          onChange={inputEvent}
+          name="password" placeholder="Password"/>
+
+          <button>Forget Password ? </button>
+          {/* <!-- <input class="searchTerm" type="text" placeholder="Confirm Password"/>
+          <label for="checkbox">
+            <input type="checkbox" name="" id=""> I accept terms and condition
+          </label> --> */}
+          
+          <div class="button"><button  type="submit"
+            variant="contained"
+            color="primary"
+            disabled={disable}>Sign in</button></div>
         </form>
+        </div>
       </div>
-      <Footer />
     </>
   );
 }

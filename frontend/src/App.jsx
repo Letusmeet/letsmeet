@@ -13,6 +13,7 @@ import CreateRoom from "./dashboard/room/CreateRoom";
 import CardList from "./dashboard/card/CardList";
 import CreateOffice from "./dashboard/CreateOffice";
 import CreateBoard from "./dashboard/board/CreateBoard";
+import Landing from "./Landing/Landing";
 import CreateCard from "./dashboard/card/CreateCard";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
         <Navbar authenticated={authenticated} />
         <Switch>
+          <Route exact path="/" component={Landing}/>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/home" component={Home} />

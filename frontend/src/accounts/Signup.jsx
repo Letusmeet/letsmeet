@@ -110,85 +110,73 @@ export default function Login(props) {
   const classes = useStyles();
   return (
     <>
-      <div className="signup_outer shadow-lg   rounded">
-        <Alert style={{ textAlign: "center" }} variant="danger">
-          {logMsg}
-        </Alert>
-        <form
-          onSubmit={onSubmits}
-          style={{ textAlign: "center" }}
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            required={true}
-            label="username"
-            autoComplete="off"
-            value={name.username}
-            onChange={inputEvent}
-            name="username"
-          />
-          <TextField
-            required={true}
-            label="Email"
-            autoComplete="off"
-            value={name.email}
-            onChange={inputEvent}
-            name="email"
-          />
-          <TextField
-            required={true}
+     <Alert style={{ textAlign: "center" }} variant="danger">
+        {logMsg}
+      </Alert>
+     <div class="log_container">
+      
+      <div class="page"> 
+        <h1>Hello Friend!</h1>
+        <p>Suspendisse porttitor mi id magna mollis, eget hendrerit justo volutpat. Vivamus nec arcu sed mauris posuere aliquam.</p>
+        <div class="shape1" id="shape"></div>
+        <div class="shape2" id="shape"></div>
+      </div>
+      <div class="log_form"> 
+        <h2>Create an account</h2>
+        {/* <!-- <div class="sns">
+          <div class="circle1"><img src="https://www.flaticon.com/svg/static/icons/svg/1384/1384053.svg" width="30"/></div>
+          <div class="circle1 tw"><img src="https://www.flaticon.com/svg/static/icons/svg/733/733579.svg" width="30"/></div>
+          <div class="circle1 goo"><img src="https://www.flaticon.com/svg/static/icons/svg/2875/2875404.svg" width="30"/></div>
+        </div>
+        <p>or use your email for registration</p> --> */}
+        <form  onSubmit={onSubmits}
+       
+        className={classes.root}
+        noValidate
+        autoComplete="off">
+        <input className="searchTerm" type="text" required={true}
+        label="username"
+        autoComplete="off"
+        value={name.username}
+        onChange={inputEvent}
+        name="username" placeholder="Name"/>
+
+        <input class="searchTerm" required={true}
+        label="Email"
+        autoComplete="off"
+        value={name.email}
+        onChange={inputEvent}
+        name="email" type="text" placeholder="E-mail"/>
+
+        <input class="searchTerm" type="text"
+        required={true}
             label="Password"
             type="password"
             autoComplete="current-password"
             value={name.password1}
             onChange={inputEvent}
-            name="password1"
-          />
-          <TextField
-            required={true}
+            name="password1" placeholder="Password"/>
+        <input class="searchTerm" type="text"
+        required={true}
             label="confirm Password"
             type="password"
             autoComplete="current-password"
             value={name.password2}
             onChange={inputEvent}
-            name="password2"
-          />
-          <div>
-            <Checkbox
-              checked={name.checked}
-              onChange={handleChange}
-              color="primary"
-              inputProps={{ "aria-label": "secondary checkbox" }}
-              name="checkbox"
-            />
-            <small>I accept term and condition</small>
-          </div>
-          <Row
-            style={{
-              width: "90%",
-            }}
-          >
-            <Col>
-              <Button type="submit" variant="contained" color="primary">
-                Login
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={disable}
-              >
-                Signup
-              </Button>
-            </Col>
-          </Row>
-        </form>
+            name="password2" placeholder="Confirm Password"/>
+
+        <label for="checkbox">
+          <input type="checkbox" checked={name.checked}
+          onChange={handleChange}
+          color="primary"
+          inputProps={{ "aria-label": "secondary checkbox" }}
+          name="checkbox"/> I accept terms and condition
+        </label>
+        
+        <div class="button"><button type="submit" href="#">sign up</button></div>
+      </form>
       </div>
-      <Footer />
+    </div>
     </>
   );
 }
