@@ -54,7 +54,7 @@ function BoardList(props) {
 
   return (
     <>
-      <DashboardNav />
+      <DashboardNav no={2} roomId={roomId} />
 
       <Container>
         <NavLink

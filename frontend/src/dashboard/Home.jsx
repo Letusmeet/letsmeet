@@ -7,18 +7,18 @@ import DashboardNav from "./DashboardNav";
 import RoomList from "./room/RoomList";
 import { Container, Row, Col } from "react-bootstrap";
 import UserList from "./UserList";
-import Chatcontent from "../Chat/ChatContent/ChatContent"
+import Chatcontent from "../Chat/ChatContent/ChatContent";
 function Home() {
-const [currentConvo,setCurrentConvo] = React.useState("");
-const [ name, setName]= React.useState("");
-function handler(id,name) {
-setName(name);
-setCurrentConvo(id);
-console.log(currentConvo,name);
-}
+  const [currentConvo, setCurrentConvo] = React.useState("");
+  const [name, setName] = React.useState("");
+  function handler(id, name) {
+    setName(name);
+    setCurrentConvo(id);
+    console.log(currentConvo, name);
+  }
   return (
     <>
-      <DashboardNav />
+      <DashboardNav no={1} />
       <Row>
         <Col xs lg="4">
           <div style={{ marginLeft: "20px" }}>
@@ -26,7 +26,11 @@ console.log(currentConvo,name);
           </div>
         </Col>
         <Col xs lg="4">
-        <Chatcontent handler={handler} currentConvo={currentConvo} name={name}></Chatcontent>
+          <Chatcontent
+            handler={handler}
+            currentConvo={currentConvo}
+            name={name}
+          ></Chatcontent>
         </Col>
         <Col xs lg="4">
           <UserList />
