@@ -76,7 +76,7 @@ router.get("/conversations/:id", middleware, async (req, res) => {
   try {
     let userId = req.params.id; //should add logged in user id
     console.log(userId);
-    let result = await Conversation.find({ recipients: userId }).populate("recipients",'name email');
+    let result = await Conversation.find({ recipients: userId }).populate("recipients", 'name email');
     res.status(200).json(result);
   } catch (e) {
     console.log(e);
@@ -141,6 +141,16 @@ router.post('/addusertochat/:chatid/:id', middlewareadmin, (req, res) => {
   }).catch(err => {
     console.log(err);
     res.status(500).json({ message: "Server error" });
+  })
+})
+
+
+
+//to fetch chat for general
+router.post('/grenralchat/:id', middleware, (req, res) => {
+  let from = mongoose.Types.ObjectId(req.user._id);
+  Conversation.findByIdAndUpdate(req.params.id, {
+
   })
 })
 

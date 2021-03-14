@@ -185,4 +185,29 @@ router.post("/adduseroffice/:id/:officeid", middlewareadmin, (req, res) => {
         });
 });
 
+
+//to create general chat from officeid
+router.post('/gc/:id', middlewareadmin, (req, res) => {
+    const { name } = req.body
+    try {
+        const newconvo = Convo({
+            recipients: req.user._id,
+            name
+        })
+        newconvo.save().then(result => {
+            Office.findByIdAndUpdate(req.params.id, {
+                $push: { chats: result._id }
+            }, { new: true }).then(() => {
+                res.status(200).json({ message: "Conversation created successfully" });
+
+            }).catch(err => {
+                console.log(err);
+                res.status(500).json({ message: "Server error" });
+            })
+        })
+    } catch {
+        console.log(e);
+        res.status(500).json({ message: "Server error" });
+    }
+})
 module.exports = router;

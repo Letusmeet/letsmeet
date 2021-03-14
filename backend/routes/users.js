@@ -65,6 +65,11 @@ router.post('/fetchroom', middleware, (req, res) => {
     res.json(req.user.rooms);
 })
 
+//to fetch  genralchats from officeid
+router.post('/fetchgeneralchats/:id', middleware, (req, res) => {
+
+})
+
 //to fetch userprofile
 router.post('/profile', middleware, (req, res) => {
     User.findById(req.user._id).then(me => {
