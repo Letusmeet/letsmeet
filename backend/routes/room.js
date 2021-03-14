@@ -150,9 +150,9 @@ router.post("/searchuser", middlewareadmin, (req, res) => {
 });
 
 //add user to office
-router.post("/adduseroffice/:officeid", middlewareadmin, (req, res) => {
+router.post("/adduseroffice/:id/:officeid", middlewareadmin, (req, res) => {
   Office.findByIdAndUpdate(
-    req.params.Officeid,
+    req.params.officeid,
     {
       $push: { membersoffice: { memberid: req.params.id } },
     },
@@ -162,7 +162,7 @@ router.post("/adduseroffice/:officeid", middlewareadmin, (req, res) => {
       User.findByIdAndUpdate(
         req.params.id,
         {
-          $push: { office: req.params.office },
+          $push: { office: req.params.officeid },
         },
         { new: true }
       )
