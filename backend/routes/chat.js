@@ -4,6 +4,7 @@ const router = express.Router();
 const middleware = require('../middleware/user')
 const middlewareadmin = require('../middleware/admin')
 const Message = require("../models/Message");
+const Office = require("../models/office");
 const Conversation = require("../models/Conversation");
 
 /*
@@ -147,11 +148,12 @@ router.post('/addusertochat/:chatid/:id', middlewareadmin, (req, res) => {
 
 
 //to fetch chat for general
-router.post('/grenralchat/:id', middleware, (req, res) => {
-  let from = mongoose.Types.ObjectId(req.user._id);
-  Conversation.findByIdAndUpdate(req.params.id, {
-
-  })
+router.post('/grenralchat/:officeid', middleware, (req, res) => {
+  Office.findById(req.params.officeid)
+    .populate("generalchat")
+    .then(response => {
+      res.json(response.generalchat)
+    })
 })
 
 
