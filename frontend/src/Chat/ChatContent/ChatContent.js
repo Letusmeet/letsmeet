@@ -5,6 +5,7 @@ import "./ChatContent.css";
 import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
+import socketIOClient from "socket.io-client";
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [];
@@ -120,7 +121,7 @@ export default class ChatContent extends Component {
   };
   onenter=(e) =>{
     document.getElementById("sendMsgBtn").addEventListener("click",(e)=>{
-      if (this.state.msg != "") {
+      if (this.state.msg !== "") {
         this.chatItms.push({
           key: 1,
           type: "",
@@ -128,6 +129,15 @@ export default class ChatContent extends Component {
           image:
           userimage,
         });
+        /*
+        fetch('/chat',{
+         method: 'post',
+         headers: new Headers({
+          'Authorization': `Bearer ${this.state.userToken}`, 
+          'Content-Type': 'application/json'
+         }),
+         body: JSON.stringify({body: this.state.msg, to: 'receiver id'})
+        })*/
         this.setState({ chat: [...this.chatItms] });
         this.scrollToBottom();
         this.setState({ msg: "" });
