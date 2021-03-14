@@ -13,6 +13,14 @@ const ConversationSchema = new Schema({
     type: String,
     default: Date.now,
   },
+  privatechat:{
+    from:{
+      type: Schema.Types.ObjectId, ref:"User"
+    },
+    to:{
+      type: Schema.Types.ObjectId, ref:"User"
+    }
+  }
 });
 
 module.exports = Conversation = mongoose.model(

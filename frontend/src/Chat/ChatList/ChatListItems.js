@@ -7,6 +7,7 @@ export default class ChatListItems extends Component {
     //console.log(props);
   }
   selectChat = (e) => {
+    //console.log(e);
     console.log(this.props.handler);
     this.props.handler(this.props.id,this.props.name);
     console.log(this.props);

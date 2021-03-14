@@ -17,7 +17,8 @@ export default class ChatContent extends Component {
       name:this.props.name,
       chat: this.chatItms,
       msg: "",
-      userToken:localStorage.getItem('jwt')
+      userToken:localStorage.getItem('csrfToken'),
+      reciever:""
     };
     console.log(props);
   }
@@ -26,7 +27,7 @@ export default class ChatContent extends Component {
     this.messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
   updateUser(){
-    console.log(this.state)
+    console.log(this.props);
     fetch("/messages/"+this.props.currentConvo,
     {
       method: 'get',
@@ -40,7 +41,7 @@ export default class ChatContent extends Component {
       var obj=[];
       var counter=0;
       result.forEach(element => {
-        if(element.from==localStorage.getItem('id')){
+        if(element.from==localStorage.getItem('csrfToken')){
           var ob={
             key:++counter,
             image:userimage,
@@ -79,6 +80,7 @@ export default class ChatContent extends Component {
             image:
               userimage,
           });
+          this.onenter(e);
           this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
           this.setState({ msg: "" });
@@ -87,7 +89,7 @@ export default class ChatContent extends Component {
     });
     this.scrollToBottom();
     
-    fetch("/conversations/"+localStorage.getItem('id'),
+    fetch("/conversations/"+localStorage.getItem('UserId'),
     {
       method: 'get',
       headers: new Headers({
@@ -98,13 +100,19 @@ export default class ChatContent extends Component {
     .then( result => {
       var myid=result[result.length-1]._id;
       console.log(result);
-      var name=result[result.length-1].recipients.filter(item=>{
-        return item._id!==localStorage.getItem('id');
+      var name=result[0].recipients.filter(item=>{
+        return item._id!==localStorage.getItem('UserId');
       });
       console.log(name);
+      var recieverId=name[0]._id;
+      //console.log(recieverId);
+      this.setState({
+        reciever:recieverId
+      })
       name=name[0].name;
       this.props.handler(myid,name);
-      console.log(myid);
+      
+      console.log(this.props);
         }).catch(err => {
             console.log(err)
         })
@@ -113,6 +121,31 @@ export default class ChatContent extends Component {
   componentDidUpdate(prevProps) {
     if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
     {
+      fetch("/conversations",
+    {
+      method: 'get',
+      headers: new Headers({
+        'Authorization': `Bearer ${this.state.userToken}`, 
+        'Content-Type': 'application/json'
+      })
+    }).then(response => response.json())
+    .then( result => {
+      var myid=result[result.length-1]._id;
+      console.log(result);
+      //console.log(resu);
+      var recieverId=result[0].privatechat.to;
+      //console.log(recieverId);
+      this.setState({
+        reciever:recieverId
+      })
+      //name=name[0].name;
+      this.props.handler(myid,"Friend");
+      
+      console.log(this.props);
+        }).catch(err => {
+            console.log(err)
+        })
+      
       this.updateUser();
     }
   } 
@@ -120,29 +153,37 @@ export default class ChatContent extends Component {
     this.setState({ msg: e.target.value });
   };
   onenter=(e) =>{
-    document.getElementById("sendMsgBtn").addEventListener("click",(e)=>{
+    
       if (this.state.msg !== "") {
-        this.chatItms.push({
-          key: 1,
+        var len=this.chatItms.length;
+        var ob={
+          key: ++len,
           type: "",
           msg: this.state.msg,
           image:
           userimage,
-        });
-        /*
+        };
+        this.setState({
+          chatItms:[...this.chatItms, ob]
+        })
+        console.log(this.state.msg);
         fetch('/chat',{
          method: 'post',
          headers: new Headers({
-          'Authorization': `Bearer ${this.state.userToken}`, 
+          'Authorization': `Bearer ${localStorage.getItem('csrfToken')}`, 
           'Content-Type': 'application/json'
          }),
-         body: JSON.stringify({body: this.state.msg, to: 'receiver id'})
-        })*/
+         body: JSON.stringify({body: this.state.msg, to: this.state.reciever})
+        }).then(sent=>{
+          console.log(sent);
+        }).catch(err=>{
+          console.log(err);
+        })
         this.setState({ chat: [...this.chatItms] });
         this.scrollToBottom();
         this.setState({ msg: "" });
       }
-    });
+    
   };
   onADD() {
     document.querySelector(".main__chatlist").style.display = "block";

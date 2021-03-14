@@ -6,6 +6,8 @@ const middlewareadmin = require('../middleware/admin')
 const Message = require("../models/Message");
 const Office = require("../models/office");
 const Conversation = require("../models/Conversation");
+const User = require("../models/user");
+//const { default: UserProfile } = require("../../frontend/src/Chat/UserProfile/UserProfile");
 
 /*
 Todo: jwtCheck for all routes, Socket connection (Refer this repo: https://github.com/davehowson/chat-app)
@@ -19,66 +21,138 @@ Request body example:
 }
 }*/
 router.post("/chat", middleware, (req, res) => {
-  let from = mongoose.Types.ObjectId(req.user._id);
-  let to = mongoose.Types.ObjectId(req.body.to);
+  let from = req.user._id;
+  let to = req.body.to.toString();
+  console.log(from, to, "chat route");
+  // Conversation.findOneAndUpdate(
+  //   {
+  //     // recipients: {
+  //     //   $all: [{ $elemMatch: { $eq: from } }, { $elemMatch: { $eq: to } }],
+  //     // },
+  //     privatechat:{
+  //       to:to.toString(),
+  //       from:from.toString()
+  //     }
+  //   },
+  //   {
+  //     //recipients: [req.user._id, req.body.to],
+  //     privatechat:{
+  //       to:to,
+  //       from:from
+  //     },
+  //     lastMessage: req.body.body,
+  //     date: Date.now(),
+  //   },
+  //   {upsert:true, new:true, setDefaultsOnInsert: true }).then((conversation)=>{
 
-  Conversation.findOneAndUpdate(
-    {
-      recipients: {
-        $all: [{ $elemMatch: { $eq: from } }, { $elemMatch: { $eq: to } }],
-      },
-    },
-    {
-      recipients: [req.user._id, req.body.to],
-      lastMessage: req.body.body,
-      date: Date.now(),
-    },
-    { upsert: true, new: true, setDefaultsOnInsert: true },
-    function (err, conversation) {
-      if (err) {
-        console.log(err);
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ message: "Failure" }));
-        res.sendStatus(500);
-      } else {
+  //       console.log(conversation);
+
+
+  //   }).catch(err=>{
+  //       console.log(err);
+  //       res.setHeader("Content-Type", "application/json");
+  //       res.end(JSON.stringify({ message: "Failure" }));
+  //       res.sendStatus(500);
+
+  //   })
+
+  Conversation.find().then(found => {
+    var ob = found.filter(item => {
+      if (item.privatechat.to == to.toString() && item.privatechat.from == from.toString()) {
+        return item;
+      }
+      console.log(item.privatechat);
+    });
+    console.log(ob);
+    if (ob.length == 0) {
+      myconvo = new Conversation({
+        privatechat: {
+          to: to,
+          from: from
+        },
+        lastMessage: req.body.body
+      });
+      myconvo.save().then(done => {
+        console.log(done);
+        let message = new Message({
+          conversation: done._id,
+          to: req.body.to,
+          from: req.user._id,
+          body: req.body.body,
+        });
+      
+        //socket connection https://github.com/davehowson/chat-app
+        req.io.sockets.emit("messages", req.body.body);
+        message.save().then(done => {
+          res.setHeader("Content-Type", "application/json");
+          res.end(
+            JSON.stringify({
+              message: "Success",
+              conversationId: conversation._id,
+            })
+          );
+        }).catch(err => {
+          console.log(err);
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ message: "Failure" }));
+          res.sendStatus(500);
+        })
+      })
+    }
+    else {
+      Conversation.findByIdAndUpdate(ob[0]._id, {
+        lastMessage: req.body.body
+      }).then(changed => {
+        res.json(changed)
         let message = new Message({
           conversation: conversation._id,
           to: req.body.to,
           from: req.user._id,
           body: req.body.body,
         });
-
+      
         //socket connection https://github.com/davehowson/chat-app
         req.io.sockets.emit("messages", req.body.body);
-
-        message.save((err) => {
-          if (err) {
-            console.log(err);
-            res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify({ message: "Failure" }));
-            res.sendStatus(500);
-          } else {
-            res.setHeader("Content-Type", "application/json");
-            res.end(
-              JSON.stringify({
-                message: "Success",
-                conversationId: conversation._id,
-              })
-            );
-          }
-        });
-      }
+        message.save().then(done => {
+          res.setHeader("Content-Type", "application/json");
+          res.end(
+            JSON.stringify({
+              message: "Success",
+              conversationId: changed._id,
+            })
+          );
+        }).catch(err => {
+          console.log(err);
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ message: "Failure" }));
+          res.sendStatus(500);
+        })
+      }).catch(err => {
+        console.log(err);
+      })
     }
-  );
+  });
+
+  
 });
 
 //to fetch all the conversations the person had
-router.get("/conversations/:id", middleware, async (req, res) => {
+router.get("/conversations", middleware, async (req, res) => {
   try {
-    let userId = req.params.id; //should add logged in user id
-    console.log(userId);
-    let result = await Conversation.find({ recipients: userId }).populate("recipients", 'name email');
-    res.status(200).json(result);
+    let userId = req.user._id; //should add logged in user id
+    //console.log(userId);
+    let result = await Conversation.find().then(convos=>{
+      //console.log(convos);
+      var ob=convos.filter(item=>{
+        //console.log(item.privatechat.to);
+        if(item.privatechat.to==userId.toString()||item.privatechat.from==userId.toString()){
+          return item;
+        }
+      });
+      console.log(ob);
+      res.status(200).json(ob);
+    });
+    
   } catch (e) {
     console.log(e);
     res.status(500).send("Server error");
@@ -90,7 +164,9 @@ router.get("/conversations/:id", middleware, async (req, res) => {
 router.get("/messages/:id", middleware, async (req, res) => {
   try {
     let conversationId = req.params.id;
-    const messages = await Message.find({ conversation: conversationId });
+    const messages = await Message.find({ conversation: conversationId }).then(done=>{
+      console.log(done);
+    });
     res.status(200).json(messages);
   } catch (e) {
     console.log(e);

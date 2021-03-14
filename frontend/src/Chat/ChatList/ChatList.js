@@ -8,12 +8,12 @@ export default class ChatList extends Component {
     super(props);
     this.state = {
       allChats: [],
-      userToken:localStorage.getItem('jwt')
+      userToken:localStorage.getItem('csrfToken')
     };
     this.findAllChatUsers=this.findAllChatUsers.bind(this);
   }
   findAllChatUsers(){
-    fetch('/conversations/604b356433ba894e0a52ca21',
+    fetch('/conversations',
     {
       method: 'get',
       headers: new Headers({
@@ -25,12 +25,8 @@ export default class ChatList extends Component {
       console.log(result);
       var data=[];
       result.forEach(item=>{
-        item.recipients.filter(friend=>{
-          let id=item._id;
-          if(friend._id!==localStorage.getItem('id')){
-            data.push({friend,id});
-          }
-        })
+        var ob={friend:item.privatechat.to,id:item._id}
+        data.push(ob);
       })
       console.log(data);
       var myobj=[];
@@ -81,7 +77,7 @@ export default class ChatList extends Component {
                     {this.state.allChats.map((item, index) => {
                         return (
                         <ChatListItems
-                            name={item.friend.name}
+                            name="Friend"
                             key={item.friend._id}
                             animationDelay={index + 1}
                             active={item.friend.active ? "active" : ""}

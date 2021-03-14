@@ -17,7 +17,7 @@ export default class UserProfile extends Component {
     {
       method: 'post',
       headers: new Headers({
-        'Authorization': 'Bearer '+ localStorage.getItem('jwt'), 
+        'Authorization': 'Bearer '+ localStorage.getItem('csrfToken'), 
         'Content-Type': 'application/json'
       })
     }).then(response => response.json())
