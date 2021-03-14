@@ -1,7 +1,153 @@
-.footer {
-  background-color: #33435e;
+footer{
+  min-height: 450px;
+  width: 100%;
+  padding: 100px 10%;
+  background-color: black;
+  display: flex !important;
+  justify-content: space-between;
+
+}
+.onef{
+  height: 100%;
+  width: 25%;
+  
+}
+.twof{
+  height: 100%;
+  width: 33%;
+  
+}
+.threef{
+  height: 100%;
+  width: 16%;
+  
+}
+.fourf{
+  height: 100%;
+  width: 25%;
+  
+}
+footer .heading{
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 40px;
+  letter-spacing: 1.5px;
+}
+.onef p{
+  padding-right: 30px;
+  text-align: left;
+  font-size: 90%;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 2;
+}
+.twof .blog{
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.twof .blog .img{
+  height: 100%;
+  width: 25%;
+}
+.blog .img img{
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+.twof .blog .contentf{
+  width: 70%;
+  height: 100%;
+  position: relative;
+}
+.twof .blog .contentf p{
+  color: white;
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: none;
+  text-align: left;
+  margin-bottom: auto;
+}
+.twof .blog .contentf .po{
   position: absolute;
   bottom: 0;
-  margin-top: 10%;
-  width: 100%;
+}
+.twof .blog .contentf a{
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 14px;
+}
+.twof .blog .contentf a i{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.threef {
+  padding-left: 20px;
+}
+.threef p{
+  margin-bottom: 25px;
+  text-align: left;
+  font-size: 90%;
+  font-weight: 400;
+  text-transform: none;
+  color: rgba(255, 255, 255,0.7);
+}
+.fourf p{
+  padding-right: 30px;
+  text-align: left;
+  font-size: 90%;
+  color: rgba(255, 255, 255);
+  line-height: 2;
+  margin-bottom: 10px;
+}
+.fourf p i{
+  color: white;
+}
+@media only screen and (max-width: 700px){
+  footer{
+    padding: 50px 30px;
+    height: auto;
+    flex-direction: column;
+}
+.onef{
+    width: 100%;
+    margin-bottom: 40px;
+}
+.twof{
+    margin-bottom: 40px;
+    width: 100%;
+}
+.threef{
+    margin-bottom: 40px;
+    width: 100%;
+    padding: 0px;
+}
+.fourf{
+    width: 100%;
+}
+}
+@media only screen and (max-width: 1000px) and (min-width:700px){
+  footer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .onef{
+    width: 50%;
+    margin-bottom: 40px;
+}
+.twof{
+    margin-bottom: 40px;
+    width: 50%;
+}
+.threef{
+    margin-bottom: 40px;
+    width: 50%;
+    padding: 0px;
+}
+.fourf{
+    width: 50%;
+} 
 }
