@@ -12,7 +12,7 @@ import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -103,6 +103,7 @@ export default function CheckboxListSecondary(props) {
         {[0, 1, 2, 3].map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
           return (
+            
             <ListItem key={value} button>
               <ListItemAvatar>
                 <Avatar
@@ -110,7 +111,9 @@ export default function CheckboxListSecondary(props) {
                   src={`/static/images/avatar/${value + 1}.jpg`}
                 />
               </ListItemAvatar>
+              <Link to="/chat">
               <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              </Link>
               <ListItemSecondaryAction>
                 <ChatBubbleIcon style={{ color: "#de3e4d" }} />
               </ListItemSecondaryAction>
