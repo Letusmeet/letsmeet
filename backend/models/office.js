@@ -23,10 +23,10 @@ const officeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Room'
     }],
-    generalchat: {
+    chats: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Conversation'
-    }
+    }]
 
 })
 
