@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 const UserAuth = createContext({
-  authenticated: false,
+  authenticated: window.localStorage.getItem("isAuth"),
   setAuthenticated: (auth) => {},
 });
 export default UserAuth;

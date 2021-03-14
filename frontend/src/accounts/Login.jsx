@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
 // import UserAuth from "./UserAuth";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
-import { Row, Col, Alert } from "react-bootstrap";
+
+import { Alert } from "react-bootstrap";
 import "./Login.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UserAuth from "../accounts/UserAuth";
-import Footer from "../base/Footer";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -97,60 +95,88 @@ export default function Login(props) {
 
   return (
     <>
-      
       <Alert style={{ textAlign: "center" }} variant="danger">
         {logMsg}
       </Alert>
 
-    <div class="log_container">
-        <div class="page"> 
+      <div class="log_container">
+        <div class="page">
           <h1>Hello Friend!</h1>
-          <p>Suspendisse porttitor mi id magna mollis, eget hendrerit justo volutpat. Vivamus nec arcu sed mauris posuere aliquam.</p>
+          <p>
+            Suspendisse porttitor mi id magna mollis, eget hendrerit justo
+            volutpat. Vivamus nec arcu sed mauris posuere aliquam.
+          </p>
           <div class="shape1" id="shape"></div>
           <div class="shape2" id="shape"></div>
         </div>
-        <div class="log_form"> 
+        <div class="log_form">
           <h2>LogIn with your Account</h2>
           <div class="sns">
-            <div class="circle1"><img src="https://www.flaticon.com/svg/static/icons/svg/1384/1384053.svg" width="30"/></div>
-            <div class="circle1 tw"><img src="https://www.flaticon.com/svg/static/icons/svg/733/733579.svg" width="30"/></div>
-            <div class="circle1 goo"><img src="https://www.flaticon.com/svg/static/icons/svg/2875/2875404.svg" width="30"/></div>
+            <div class="circle1">
+              <img
+                src="https://www.flaticon.com/svg/static/icons/svg/1384/1384053.svg"
+                width="30"
+              />
+            </div>
+            <div class="circle1 tw">
+              <img
+                src="https://www.flaticon.com/svg/static/icons/svg/733/733579.svg"
+                width="30"
+              />
+            </div>
+            <div class="circle1 goo">
+              <img
+                src="https://www.flaticon.com/svg/static/icons/svg/2875/2875404.svg"
+                width="30"
+              />
+            </div>
           </div>
           <p>or use your email for Login</p>
-          <form  onSubmit={onSubmits}
-          
-          className={classes.root}
-          noValidate
-          autoComplete="off">
+          <form
+            onSubmit={onSubmits}
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
+            <input
+              class="searchTerm"
+              required={true}
+              id="standard-basic"
+              label="Email"
+              autoComplete="off"
+              value={name.email}
+              onChange={inputEvent}
+              name="email"
+              type="text"
+              placeholder="E-mail"
+            />
 
-          <input class="searchTerm" required={true}
-          id="standard-basic"
-          label="Email"
-          autoComplete="off"
-          value={name.email}
-          onChange={inputEvent}
-          name="email" type="text" placeholder="E-mail"/>
+            <input
+              class="searchTerm"
+              type="text"
+              required={true}
+              id="standard-password-input"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              value={name.password}
+              onChange={inputEvent}
+              name="password"
+              placeholder="Password"
+            />
 
-          <input class="searchTerm" type="text" required={true}
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          value={name.password}
-          onChange={inputEvent}
-          name="password" placeholder="Password"/>
-
-          <button>Forget Password ? </button>
-          {/* <!-- <input class="searchTerm" type="text" placeholder="Confirm Password"/>
-          <label for="checkbox">
-            <input type="checkbox" name="" id=""> I accept terms and condition
-          </label> --> */}
-          
-          <div class="button"><button  type="submit"
-            variant="contained"
-            color="primary"
-            disabled={disable}>Sign in</button></div>
-        </form>
+            <button>Forget Password ? </button>
+            <div class="button">
+              <button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={disable}
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

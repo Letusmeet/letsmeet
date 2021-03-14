@@ -131,7 +131,6 @@ export default function CreateRoom() {
           </Row>
         </form>
       </div>
-      <Footer />
     </>
   );
 }
