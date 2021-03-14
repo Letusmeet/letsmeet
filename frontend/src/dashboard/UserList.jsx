@@ -42,7 +42,7 @@ export default function CheckboxListSecondary(props) {
         }
       )
       .then(async (response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           console.log(response);
           setUserList(response.data);
           history.push("/home");
@@ -100,19 +100,14 @@ export default function CheckboxListSecondary(props) {
         <ListItem button style={{ textAlign: "center" }}>
           <h5>Office Member</h5>
         </ListItem>
-        {[0, 1, 2, 3].map((value) => {
-          const labelId = `checkbox-list-secondary-label-${value}`;
+        {userList.map((value) => {
           return (
             
             <ListItem key={value} button>
               <ListItemAvatar>
-                <Avatar
-                  alt={`Avatar n°${value + 1}`}
-                  src={`/static/images/avatar/${value + 1}.jpg`}
-                />
               </ListItemAvatar>
               <Link to="/chat">
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText primary={'Hi'} />
               </Link>
               <ListItemSecondaryAction>
                 <ChatBubbleIcon style={{ color: "#de3e4d" }} />

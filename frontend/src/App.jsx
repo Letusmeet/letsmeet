@@ -17,13 +17,15 @@ import Landing from "./Landing/Landing";
 import CreateCard from "./dashboard/card/CreateCard";
 
 function App() {
-  const [authenticated, setAuthenticated] = React.useState(false);
+  const [authenticated, setAuthenticated] = React.useState(
+    window.localStorage.getItem("isAuth")
+  );
   return (
     <>
       <UserAuth.Provider value={{ authenticated, setAuthenticated }}>
         <Navbar authenticated={authenticated} />
         <Switch>
-          <Route exact path="/" component={Landing}/>
+          <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/home" component={Home} />

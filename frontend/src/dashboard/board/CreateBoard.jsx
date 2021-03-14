@@ -135,7 +135,6 @@ export default function CreateBoard(props) {
           </Row>
         </form>
       </div>
-      <Footer />
     </>
   );
 }

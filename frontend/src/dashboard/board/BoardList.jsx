@@ -100,6 +100,7 @@ function BoardList(props) {
             ))}
           </Row>
         </Col>
+
         <Col xs="12" lg="4">
           <RoomUserList />
         </Col>

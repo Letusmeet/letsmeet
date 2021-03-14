@@ -4,6 +4,7 @@ import AuthNav from "./AuthNav";
 import UnAuthNav from "./UnAuthNav";
 
 function NavBar(props) {
-  return <>{props.authenticated ? <AuthNav /> : <UnAuthNav />}</>;
+  const { authenticated } = React.useContext(UserAuth);
+  return <>{authenticated ? <AuthNav /> : <UnAuthNav />}</>;
 }
 export default NavBar;

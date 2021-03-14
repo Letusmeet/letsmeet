@@ -20,19 +20,19 @@ function Home() {
     <>
       <DashboardNav no={1} />
       <Row>
-        <Col xs lg="4">
-          <div style={{ marginLeft: "20px" }}>
+        <Col xs="12" lg="4">
+          <div style={{ marginLeft: "10px" }}>
             <RoomList />
           </div>
         </Col>
-        <Col xs lg="4">
+        <Col xs="12" lg="4">
           <Chatcontent
             handler={handler}
             currentConvo={currentConvo}
             name={name}
           ></Chatcontent>
         </Col>
-        <Col xs lg="4">
+        <Col xs="12" lg="4">
           <UserList />
         </Col>
       </Row>

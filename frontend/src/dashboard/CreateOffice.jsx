@@ -109,7 +109,6 @@ export default function Login(props) {
           </Row>
         </form>
       </div>
-      <Footer />
     </>
   );
 }
