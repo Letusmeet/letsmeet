@@ -25,7 +25,7 @@ const officeSchema = new mongoose.Schema({
     }],
     generalchat: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Conversation'
+        ref: 'conversations'
     }
 
 })

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function RoomList() {
   const [roomListArray, setRoomListArray] = React.useState([]);
-  const classes = useStyles();
+  const classes = useStyles()
 
   //get room list
   React.useEffect(() => {
@@ -29,7 +29,8 @@ function RoomList() {
     axios
       .get(`/fetchroom/${window.localStorage.getItem("officeID")}`, {
         headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("csrfToken"),
+          Authorization:"Bearer " + window.localStorage.getItem("csrfToken"),
+          ContentType:"application/json"
         },
       })
       .then((response) => {
