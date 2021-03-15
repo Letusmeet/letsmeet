@@ -41,7 +41,7 @@ export default class ChatContent extends Component {
       var obj=[];
       var counter=0;
       result.forEach(element => {
-        if(element.from==localStorage.getItem('csrfToken')){
+        if(element.from._id==localStorage.getItem('UserId')){
           var ob={
             key:++counter,
             image:userimage,
@@ -62,7 +62,6 @@ export default class ChatContent extends Component {
       
       this.setState({
         chat:obj,
-        name:this.props.name
       });
       console.log(this.state);
         }).catch(err => {
@@ -84,44 +83,13 @@ export default class ChatContent extends Component {
           this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
           this.setState({ msg: "" });
+          this.updateUser();
         }
       }
     });
     this.scrollToBottom();
     
-    fetch("/conversations/"+localStorage.getItem('UserId'),
-    {
-      method: 'get',
-      headers: new Headers({
-        'Authorization': `Bearer ${this.state.userToken}`, 
-        'Content-Type': 'application/json'
-      })
-    }).then(response => response.json())
-    .then( result => {
-      var myid=result[result.length-1]._id;
-      console.log(result);
-      var name=result[0].recipients.filter(item=>{
-        return item._id!==localStorage.getItem('UserId');
-      });
-      console.log(name);
-      var recieverId=name[0]._id;
-      //console.log(recieverId);
-      this.setState({
-        reciever:recieverId
-      })
-      name=name[0].name;
-      this.props.handler(myid,name);
-      
-      console.log(this.props);
-        }).catch(err => {
-            console.log(err)
-        })
-        this.updateUser();
-  }
-  componentDidUpdate(prevProps) {
-    if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-    {
-      fetch("/conversations",
+    fetch("/conversations",
     {
       method: 'get',
       headers: new Headers({
@@ -133,18 +101,51 @@ export default class ChatContent extends Component {
       var myid=result[result.length-1]._id;
       console.log(result);
       //console.log(resu);
-      var recieverId=result[0].privatechat.to;
+      var recieverId
+      if(result[result.length-1].privatechat.to!==localStorage.getItem('UserId')) recieverId=result[result.length-1].privatechat.to;
+      else recieverId=result[result.length-1].privatechat.from;
+     
       //console.log(recieverId);
       this.setState({
         reciever:recieverId
       })
       //name=name[0].name;
       this.props.handler(myid,"Friend");
-      
       console.log(this.props);
         }).catch(err => {
             console.log(err)
         })
+        this.updateUser();
+  }
+  componentDidUpdate(prevProps) {
+    if(this.props.currentConvo!== prevProps.currentConvo) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+    {
+    //   fetch("/conversations",
+    // {
+    //   method: 'get',
+    //   headers: new Headers({
+    //     'Authorization': `Bearer ${this.state.userToken}`, 
+    //     'Content-Type': 'application/json'
+    //   })
+    // }).then(response => response.json())
+    // .then( result => {
+    //   var myid=result.forEach(item);
+    //   console.log(result);
+    //   //console.log(resu);
+    //   var recieverId
+    //   if(result[result.length-1].privatechat.to!==localStorage.getItem('UserId')) recieverId=result[result.length-1].privatechat.to;
+    //   else recieverId=result[result.length-1].privatechat.from;
+     
+    //   //console.log(recieverId);
+    //   this.setState({
+    //     reciever:recieverId
+    //   })
+    //   //name=name[0].name;
+    //   this.props.handler(myid,"Friend");
+    //   console.log(this.props);
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
       
       this.updateUser();
     }

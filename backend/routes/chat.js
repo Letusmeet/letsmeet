@@ -10,10 +10,6 @@ const User = require("../models/user");
 //const { default: UserProfile } = require("../../frontend/src/Chat/UserProfile/UserProfile");
 
 /*
-Todo: jwtCheck for all routes, Socket connection (Refer this repo: https://github.com/davehowson/chat-app)
- */
-//Send a private message to someone
-/*
 Request body example: 
 {
     "to":"604b37b19cde5d50c3e58c63",
@@ -58,10 +54,11 @@ router.post("/chat", middleware, (req, res) => {
 
   Conversation.find().then(found => {
     var ob = found.filter(item => {
-      if (item.privatechat.to == to.toString() && item.privatechat.from == from.toString()) {
+      if ((item.privatechat.to == to.toString() && item.privatechat.from == from.toString())||(item.privatechat.from == to.toString() && item.privatechat.to == from.toString())) {
         return item;
+        console.log(item)
       }
-      console.log(item.privatechat);
+      //console.log(item.privatechat);
     });
     console.log(ob);
     if (ob.length == 0) {
@@ -72,30 +69,24 @@ router.post("/chat", middleware, (req, res) => {
         },
         lastMessage: req.body.body
       });
+
       myconvo.save().then(done => {
-        console.log(done);
+        res.json(done);
         let message = new Message({
           conversation: done._id,
           to: req.body.to,
           from: req.user._id,
           body: req.body.body,
         });
-      
-        //socket connection https://github.com/davehowson/chat-app
         req.io.sockets.emit("messages", req.body.body);
         message.save().then(done => {
-          res.setHeader("Content-Type", "application/json");
-          res.end(
-            JSON.stringify({
+         // res.setHeader("Content-Type", "application/json");
+          console.log({
               message: "Success",
-              conversationId: conversation._id,
+              conversationId: done._id,
             })
-          );
         }).catch(err => {
           console.log(err);
-          res.setHeader("Content-Type", "application/json");
-          res.end(JSON.stringify({ message: "Failure" }));
-          res.sendStatus(500);
         })
       })
     }
@@ -105,7 +96,7 @@ router.post("/chat", middleware, (req, res) => {
       }).then(changed => {
         res.json(changed)
         let message = new Message({
-          conversation: conversation._id,
+          conversation: changed._id,
           to: req.body.to,
           from: req.user._id,
           body: req.body.body,
@@ -164,10 +155,10 @@ router.get("/conversations", middleware, async (req, res) => {
 router.get("/messages/:id", middleware, async (req, res) => {
   try {
     let conversationId = req.params.id;
-    const messages = await Message.find({ conversation: conversationId }).then(done=>{
-      console.log(done);
+    const messages = await Message.find({ conversation: conversationId }).populate('to from', 'name email').then(done=>{
+      //console.log(done);
+      res.status(200).json(done);
     });
-    res.status(200).json(messages);
   } catch (e) {
     console.log(e);
     res.status(500).send("Server error");
@@ -234,3 +225,32 @@ router.post('/grenralchat/:officeid', middleware, (req, res) => {
 
 
 module.exports = router;
+
+
+// {
+//   "privatechat": {
+//       "to": "604de06ed4244746f95b4936",
+//       "from": "604fa8f9ccead31746b24ddf"
+//   },
+//   "recipients": [],
+//   "_id": "604faa16a1d2371c3e6162f7",
+//   "lastMessage": "msg1",
+//   "date": "1615833622655",
+//   "__v": 0
+// }
+// {
+//   "privatechat": {
+//       "to": "604de06ed4244746f95b4936",
+//       "from": "604fa8f9ccead31746b24ddf"
+//   },
+//   "recipients": [],
+//   "_id": "604faa16a1d2371c3e6162f7",
+//   "lastMessage": "msg1",
+//   "date": "1615833622655",
+//   "__v": 0
+// }
+
+// {
+//   "message": "Success",
+//   "conversationId": "604fb06723c4e5222f916748"
+// }
