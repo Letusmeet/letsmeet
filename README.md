@@ -56,7 +56,7 @@ Follow these steps:hammer: for contributing:
 
 :pencil2:Fetch for any changes in the original repo by creating an upstream using:
 
->git remote add upstream https://github.com/amar-rokade/collegestudentworld
+>git remote add upstream https://github.com/Letusmeet/letsmeet.git
 
 >git fetch upstream
 
