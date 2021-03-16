@@ -18,7 +18,7 @@ An application which allows a user to create a virtual Office, rooms, chat with 
 
 # FEATURES
 
-:star2:Log in th platform and join or create a Virtual Office
+:star2:Log in the platform and join or create a Virtual Office
 
 :green_heart:Create Rooms, add people.
 
