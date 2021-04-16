@@ -99,7 +99,7 @@ router.post("/profile", middleware, (req, res) => {
 
 //to fetch office member
 router.post("/fetchofficemembers", middleware, (req, res) => {
-  Office.findById(req.user.office).then((result) => {
+  Office.findById(req.user.office).populate('membersoffice.memberid').then((result) => {
     res.json(result.membersoffice);
   });
 });
