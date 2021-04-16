@@ -18,7 +18,7 @@ An application which allows a user to create a virtual Office, rooms, chat with 
 
 # FEATURES
 
-:star2:Log in th platform and join or create a Virtual Office
+:star2:Log in the platform and join or create a Virtual Office
 
 :green_heart:Create Rooms, add people.
 
@@ -56,7 +56,7 @@ Follow these steps:hammer: for contributing:
 
 :pencil2:Fetch for any changes in the original repo by creating an upstream using:
 
->git remote add upstream https://github.com/amar-rokade/collegestudentworld
+>git remote add upstream https://github.com/Letusmeet/letsmeet.git
 
 >git fetch upstream
 

@@ -2,7 +2,8 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5001",
+  "homepage": ".",
+  "proxy": "https://letsmeet2021.herokuapp.com/",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -45,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "netlify": "^6.1.18"
   }
 }

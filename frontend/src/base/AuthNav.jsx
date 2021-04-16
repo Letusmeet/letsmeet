@@ -46,7 +46,7 @@ function AuthNav() {
             <TemporaryDrawer />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            OnWork
+            Let Us Meet
           </Typography>
           <IconButton
             aria-label="account of current user"

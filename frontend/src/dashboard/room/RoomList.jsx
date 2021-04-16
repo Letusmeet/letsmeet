@@ -60,6 +60,7 @@ function RoomList() {
       >
         <div style={{ marginLeft: "65%" }}>
           <Button>
+          <h4>Add Rooms</h4>
             <AddIcon style={{ color: "#de3e4d", fontWeight: "bold" }} />
           </Button>
         </div>

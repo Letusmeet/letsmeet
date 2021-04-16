@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import logo from './logo.png'
 import './NavChat.css'
 export default class NavChat extends Component {
     render() {

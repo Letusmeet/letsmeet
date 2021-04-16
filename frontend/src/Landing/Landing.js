@@ -11,7 +11,7 @@ export default function Landing() {
              <div className="land_content">
             <div className="row">
                 <div className="col-md-6">
-                    <h1 className="p-5 land_head">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, perspiciatis.</h1>
+                    <h1 className="p-5 land_head">Welcome to Let Us Meet! Create or join an office for free!</h1>
                     <div className="px-5">
                     <Link to="/signup"><button  className="land_btn">Join Us</button></Link>
                     </div>
