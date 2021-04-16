@@ -5,9 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Modal } from 'react-bootstrap'
-import Avatar from "@material-ui/core/Avatar";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
@@ -98,16 +96,16 @@ export default function CheckboxListSecondary(props) {
       </div>
       <List dense className={classes.root}>
         <ListItem button style={{ textAlign: "center" }}>
-          <h5>Office Member</h5>
+          <h5>Office Members</h5>
         </ListItem>
         {userList.map((value) => {
+          console.log(value);
           return (
-            
             <ListItem key={value} button>
               <ListItemAvatar>
               </ListItemAvatar>
               <Link to="/chat">
-              <ListItemText primary={'Hi'} />
+              <ListItemText primary={value.memberid.name} />
               </Link>
               <ListItemSecondaryAction>
                 <ChatBubbleIcon style={{ color: "#de3e4d" }} />

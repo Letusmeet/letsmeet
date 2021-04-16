@@ -1,5 +1,5 @@
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import React, { useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -39,7 +39,7 @@ function UnAuthNav() {
       <AppBar position="static" style={{ backgroundColor: "#2e3847" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            OnWork
+            Let Us Meet
           </Typography>
           <div>
             <IconButton
