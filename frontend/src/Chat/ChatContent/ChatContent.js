@@ -1,11 +1,10 @@
   
-import React, { Component, useState, createRef, useEffect } from "react";
+import React, { Component, createRef } from "react";
 
 import "./ChatContent.css";
 import Avatar from "./Avatar"
 import ChatItem from "./ChatItem";
 import userimage from '../ChatList/user.jpeg'
-import socketIOClient from "socket.io-client";
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [];
@@ -41,7 +40,7 @@ export default class ChatContent extends Component {
       var obj=[];
       var counter=0;
       result.forEach(element => {
-        if(element.from._id==localStorage.getItem('UserId')){
+        if(element.from._id===localStorage.getItem('UserId')){
           var ob={
             key:++counter,
             image:userimage,
@@ -50,7 +49,7 @@ export default class ChatContent extends Component {
           }
         }
         else{
-          var ob={
+          ob={
             key:++counter,
             image:userimage,
             msg:element.body,
@@ -71,7 +70,7 @@ export default class ChatContent extends Component {
   componentDidMount() {
     window.addEventListener("keydown", (e) => {
       if (e.keyCode === 13) {
-        if (this.state.msg != "") {
+        if (this.state.msg !== "") {
           this.chatItms.push({
             key: 1,
             type: "",

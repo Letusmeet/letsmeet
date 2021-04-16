@@ -9,9 +9,7 @@ import DehazeIcon from "@material-ui/icons/Dehaze";
 import Avatar from "@material-ui/core/Avatar";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppSharpIcon from "@material-ui/icons/ExitToAppSharp";
 import AccessibilityNewSharpIcon from "@material-ui/icons/AccessibilityNewSharp";
-import axios from "axios";
 import UserAuth from "../accounts/UserAuth";
 import { useHistory } from "react-router-dom";
 
@@ -64,14 +62,14 @@ export default function TemporaryDrawer() {
           <List>
             <NavLink
               className="nav-link"
-              to="/dashboard"
+              to="/home"
               activeClassName="active_nav"
             >
               <ListItem button>
                 <ListItemIcon>
                   <HomeWorkIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary="Home" />
               </ListItem>
             </NavLink>
 
